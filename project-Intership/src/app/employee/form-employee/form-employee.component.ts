@@ -11,16 +11,16 @@ export class FormEmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  count: number = 0;
-  @Output() change: EventEmitter<number> = new EventEmitter<number>();
+  counter: number = 0;
+  @Output() voteSize = new EventEmitter();
   
   ClickIncrease(){
-    this.count++;
-    this.change.emit(this.count);
+    this.counter++;
+    this.voteSize.emit(this.counter);
   }
 
   ClickDecrease(){
-    this.count--;
-    this.change.emit(this.count);
+    this.counter--;
+    this.voteSize.emit(this.counter);
   }
 }

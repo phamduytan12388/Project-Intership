@@ -4,8 +4,9 @@ import { EmployeeComponent } from './employee/employee.component';
 import { FormEmployeeComponent } from './employee/form-employee/form-employee.component';
 
 const routes: Routes = [
+  { path: '',   redirectTo: '/first-component', pathMatch: 'full' },
   { path: 'first-component', component: EmployeeComponent },
-  { path: 'second-component', component: FormEmployeeComponent },
+  // { path: 'second-component', component: FormEmployeeComponent },
 ];
 
 @NgModule({
