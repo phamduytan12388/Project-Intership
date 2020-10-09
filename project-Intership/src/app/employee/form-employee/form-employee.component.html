@@ -5,7 +5,7 @@
 <button type = "button" (click) = "ClickIncrease()">+</button>
 <br>
 <button type = "button" (click) = "ClickDecrease()">-</button> -->
-<div class="col-xs-6 col-sm-6 col-md 6 col-lg-6">
+<div class="m-4 p-4 conten-bg">
     <div class="panel panel-primary">
         <form class="" #formEmployee ="ngForm" (ngSubmit)="onSubmitForm(formEmployee)">
             <div class="d-flex border-bottom">
@@ -15,10 +15,9 @@
             </div>
             <div class="row panel-body">
                     <div class="col-6">
-                        <input 
-                            type="file" 
-                            onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-                        <img id="blah" alt="Ảnh" class="avatar" width="100" height="100" />
+                        <img [src]="iconCamera" alt="" (click)="uploadFile.click()">
+                        <input #uploadFile type="file" class="upload" (change)="updateAvatar($event)">
+                        <img [src]="user.avatar ? user.avatar : defaultLink" alt="Ảnh" class="avatar" width="100" height="100" />
                         <br>
                         <br>
                         <input 

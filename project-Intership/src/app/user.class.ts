@@ -1,4 +1,5 @@
-export class User{
+export class User {
+    public avatar: any;
     public userNo: string;
     public userName: string;
     public userEmail: string;

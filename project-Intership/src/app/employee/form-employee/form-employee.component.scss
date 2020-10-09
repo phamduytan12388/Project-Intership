@@ -14,8 +14,22 @@ input:not(:placeholder-shown) {
   border-radius: 50%;
 }
 
+.upload {
+  display: none;
+}
+
+.icon-camera {
+  width: 10px;
+}
+
 button{
     width: 70px;
     height: 40px;
     margin-right: 10px;
 }
+
+.conten-bg {
+  background: #86b3da;
+  border-radius: 10px;
+}
+
