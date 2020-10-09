@@ -1,0 +1,21 @@
+input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);;
+  }
+  
+  /* Show green borders when valid */
+  input:valid {
+    border-color: hsl(0, 0%, 81%);
+  }
+
+ .avatar {
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+button{
+    width: 70px;
+    height: 40px;
+    margin-right: 10px;
+}
