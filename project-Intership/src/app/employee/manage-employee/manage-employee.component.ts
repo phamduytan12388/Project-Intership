@@ -34,20 +34,20 @@ export class ManageEmployeeComponent implements OnInit {
     })
   }
 
-  changeFormEmployee() {
-    this.router.navigate(['/first-component']); //chuyeen huong routing
-  }
+  // changeFormEmployee() {
+  //   this.router.navigate(['/first-component']); //chuyeen huong routing
+  // }
 
   changeViewEmployee(id: number) {
-    this.router.navigate(['/view-component/',id]); //chuyeen huong routing
+    this.router.navigate(['/view/',id]); //chuyeen huong routing
   }
 
   changeEditEmployee(id: number) {
-    this.router.navigate(['/edit-component/',id]); //chuyeen huong routing
+    this.router.navigate(['/edit/',id]); //chuyeen huong routing
   }
 
   changeCreateEmployee() {
-    this.router.navigate(['/create-component/']); //chuyeen huong routing
+    this.router.navigate(['/create/']); //chuyeen huong routing
   }
 
   changeSearch(){

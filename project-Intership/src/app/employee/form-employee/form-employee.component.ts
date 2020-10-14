@@ -59,20 +59,20 @@ export class FormEmployeeComponent implements OnInit {
     if (this.type === 'edit'){
       console.log(this.userCurrentList);
       this.userCurrentList[(this.userCurrentList.findIndex(o => o.userID === this.id))] = this.user;
-      this.router.navigate(['/second-component']);
+      this.router.navigate(['/manage']);
     }
 
     if (this.type === 'create'){
       this.user.userID = Math.max(...this.userCurrentList.map(i => i.userID), 0) + 1;
       this.data.userList.push(this.user);
       // console.log(this.data.userList);
-      this.router.navigate(['/second-component']); //chuyeen huong routing
+      this.router.navigate(['/manage']); //chuyeen huong routing
     }
   }
 
   onResertForm(formUser: NgForm) {
     formUser.resetForm();
-    this.router.navigate(['/second-component']);
+    this.router.navigate(['/manage']);
   }
 
   updateAvatar(event) {

@@ -11,6 +11,7 @@ import { ManageEmployeeComponent } from './employee/manage-employee/manage-emplo
 import { CreateEmployeeComponent } from './employee/create-employee/create-employee.component';
 import { EditEmployeeComponent } from './employee/edit-employee/edit-employee.component';
 import { ViewEmployeeComponent } from './employee/view-employee/view-employee.component';
+import { EmployeeModule } from './employee/employee.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ViewEmployeeComponent } from './employee/view-employee/view-employee.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    EmployeeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

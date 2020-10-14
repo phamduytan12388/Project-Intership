@@ -8,13 +8,11 @@ import { ManageEmployeeComponent } from './employee/manage-employee/manage-emplo
 import { ViewEmployeeComponent } from './employee/view-employee/view-employee.component';
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/first-component', pathMatch: 'full' },
-  { path: 'first-component', component: EmployeeComponent },
-  { path: 'second-component', component: ManageEmployeeComponent },
-  // { path: 'third-component', component: FormEmployeeComponent },
-  { path: 'view-component/:id', component: ViewEmployeeComponent },
-  { path: 'edit-component/:id', component: EditEmployeeComponent },
-  { path: 'create-component', component: CreateEmployeeComponent },
+  { path: '',   redirectTo: '/employee', pathMatch: 'full' },
+  {
+    path: 'auth',
+    loadChildren: () => import('./employee/employee-routing.module').then(mod => mod.EmployeeRoutingModule)
+},
 ];
 
 @NgModule({
