@@ -1,0 +1,37 @@
+<!-- <button type="button" (click) = "changeFormEmployee()" class="btn btn-success add-btn">Thêm nhân viên</button> -->
+<!-- <input type="text" (change) = ""> -->
+<div class = "m-2 p-2 conten-bg">
+    <div class="d-flex border-bottom mb-4">
+        <h3 class="p-2 mr-auto text-secondary">QUẢN LÝ NHÂN VIÊN</h3>
+        <button type="button" class="btn btn-secondary btn-lg" (click)="changeCreateEmployee()">Thêm nhân viên</button>
+    </div>
+    <div>
+        <div class="d-flex border-bottom">
+            <h5 class="p-2 mr-auto text-secondary main-text">DANH SÁCH NHÂN VIÊN</h5>
+            <input class="mr-3 search" type="text" (keyup)="search$.next($event.target.value)" placeholder="Search for names..">
+        </div>
+    </div>
+    <table id="myTable" style="width:100%">
+        <tr class="bg-secondary text-white">
+            <th>STT</th>
+            <th>Mã nhân viên</th>
+            <th>Tên nhân viên</th>
+            <th>Email</th>
+            <th>Thao tác</th>
+        </tr>
+        <tr *ngFor="let u of userCurrentList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ u.userNo }}</td>
+            <td>{{ u.userName }}</td>
+            <td>{{ u.userEmail }}</td>
+            <td>
+                <i class="fa fa-eye main-text mr-2 cursor" aria-hidden="true" (click)="changeViewEmployee(u.userID)"></i>
+                <i class="fa fa-pencil main-text mr-2 cursor" aria-hidden="true" (click)="changeEditEmployee(u.userID)"></i>
+                <i class="fa fa-plus main-text cursor" aria-hidden="true" (click)="changeCreateEmployee()"></i>
+            </td>
+        </tr>
+    </table>
+    <div *ngIf = "userCurrentList.length == 0">
+        <h5 class="text-center text-danger"> Không có nhân viên nào</h5>
+    </div>
+</div>

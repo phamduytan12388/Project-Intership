@@ -1,13 +1,9 @@
-input:not(:placeholder-shown) {
-    border-color: hsl(0, 76%, 50%);;
-  }
-  
   /* Show green borders when valid */
-  input:valid {
-    border-color: hsl(0, 0%, 81%);
-  }
-
- .avatar {
+input:valid {
+  border-color: hsl(0, 0%, 81%);
+}
+  
+.avatar {
   vertical-align: middle;
   width: 150px;
   height: 150px;
@@ -19,7 +15,9 @@ input:not(:placeholder-shown) {
 }
 
 .icon-camera {
-  width: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 button{
@@ -29,7 +27,12 @@ button{
 }
 
 .conten-bg {
-  background: #86b3da;
+  background: #bfc7cc;
   border-radius: 10px;
 }
 
+.main-text {
+  &:hover {
+    text-decoration: underline;
+  }
+}

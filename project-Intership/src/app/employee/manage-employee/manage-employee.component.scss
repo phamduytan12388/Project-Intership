@@ -1,0 +1,24 @@
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+  }
+
+  .main-text {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  .conten-bg {
+    background: #acec6bb9;
+    border-radius: 10px;
+  }
+
+  .search{
+    height: 35px;
+    width: 200px;
+  }
+
+  .cursor{
+    cursor: pointer;
+  }

@@ -7,12 +7,20 @@ import { EmployeeComponent } from './employee/employee.component';
 import { FormEmployeeComponent } from './employee/form-employee/form-employee.component';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ManageEmployeeComponent } from './employee/manage-employee/manage-employee.component';
+import { CreateEmployeeComponent } from './employee/create-employee/create-employee.component';
+import { EditEmployeeComponent } from './employee/edit-employee/edit-employee.component';
+import { ViewEmployeeComponent } from './employee/view-employee/view-employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeComponent,
-    FormEmployeeComponent
+    FormEmployeeComponent,
+    ManageEmployeeComponent,
+    CreateEmployeeComponent,
+    EditEmployeeComponent,
+    ViewEmployeeComponent
   ],
   imports: [
     BrowserModule,

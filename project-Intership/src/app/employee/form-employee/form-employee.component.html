@@ -7,118 +7,78 @@
 <button type = "button" (click) = "ClickDecrease()">-</button> -->
 <div class="m-4 p-4 conten-bg">
     <div class="panel panel-primary">
-        <form class="" #formEmployee ="ngForm" (ngSubmit)="onSubmitForm(formEmployee)">
-            <div class="d-flex border-bottom">
-                <h3 class="p-2 mr-auto text-secondary">TẠO MỚI NHÂN VIÊN</h3>
-                <button type="submit" class="p-2 btn bg-secondary text-white">Lưu</button>
-                <button type="click" class="p-2 btn border-secondary" (click)="onResertForm(formEmployee)">Hủy</button>
-            </div>
-            <div class="row panel-body">
+        <form class="" #formEmployee="ngForm" action="#" method="POST">
+            <fieldset [disabled]="type === 'view'">
+                <div class="d-flex border-bottom align-item">
+                    <h3 class="p-2 mr-auto text-secondary main-text">TẠO MỚI NHÂN VIÊN</h3>
+                    <button type="submit" class="p-2 btn bg-secondary text-white" (click)="onSubmitForm()">Lưu</button>
+                    <button type="click" class="p-2 btn border-secondary"
+                        (click)="onResertForm(formEmployee)">Hủy</button>
+                </div>
+                <div class="row panel-body">
                     <div class="col-6">
-                        <img [src]="iconCamera" alt="" (click)="uploadFile.click()">
+                        <!-- <img [src]="iconCamera" alt="" class="avatar icon-camera" (click)="uploadFile.click()">
                         <input #uploadFile type="file" class="upload" (change)="updateAvatar($event)">
-                        <img [src]="user.avatar ? user.avatar : defaultLink" alt="Ảnh" class="avatar" width="100" height="100" />
+                        <img [src]="user.avatar ? user.avatar : defaultLink" alt="Ảnh" class="avatar" width="100"
+                            height="100" /> -->
                         <br>
                         <br>
-                        <input 
-                            type="checkbox" 
-                            name="txtUserCheck" 
-                            value="on" 
-                            [(ngModel)]="user.userCheck"
-                            #userCheck
-                            > Hoạt động
+                        <input type="checkbox" name="txtUserCheck" value="on" [(ngModel)]="user.userCheck"> Hoạt động
                         <br>
                         <label for="">Mã nhân viên:</label>
                         <br>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            name="txtUserNo"
-                            [(ngModel)]="user.userNo"
-                            #userNo
-                        >
-                    
+                        <input type="text" class="form-control" name="" [(ngModel)]="user.userNo"
+                            [ngModelOptions]="{standalone: true}">
+
                         <label for="">Tên nhân viên: <span style="color: red">*</span></label>
                         <br>
-                        <input 
-                            type="text" 
-                            class="form-control"
-                            name="txtUserName"
-                            minlength="5"
-                            required placeholder="Type something in here" pattern="\S+.*"
-                            [(ngModel)]="user.userName"
-                            #userName="ngModel"
-                        >
+                        <input type="text" class="form-control" name="txtUserName" minlength="5" required
+                            placeholder="Type something in here" pattern="\S+.*" [(ngModel)]="user.userName"
+                            #userName="ngModel" [ngModelOptions]="{standalone: true}">
                         <!-- {{userName.className}} -->
-                        <span 
-                            class="label bg-danger text-white" 
-                            *ngIf="userName.errors?.minlength"
-                        > Tên nhân viên phải trên 5 ký tự
+                        <span class="label bg-danger text-white" *ngIf="userName.errors?.minlength"> Tên nhân viên phải
+                            trên 5 ký tự
                         </span>
                     </div>
-                    
+
                     <div class="col-6">
                         <label for="">Email:</label>
                         <br>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            name="txtUserEmail"
-                            placeholder="abc@gmail.com"
-                            pattern="[^ @]*@[^ @]*"
-                            [(ngModel)]="user.userEmail"
-                            #userEmail="ngModel"
-                        >
-                        <span 
-                            class="label bg-danger text-white" 
-                            *ngIf="userEmail.errors?.pattern"
-                        > Email không hợp lệ!
-                        <br>
+                        <input type="text" class="form-control" name="txtUserEmail" placeholder="abc@gmail.com"
+                            pattern="[^ @]*@[^ @]*" [(ngModel)]="user.userEmail" #userEmail="ngModel"
+                            [ngModelOptions]="{standalone: true}">
+                        <span class="label bg-danger text-white" *ngIf="userEmail.errors?.pattern"> Email không hợp lệ!
+                            <br>
                         </span>
-                    
+
                         <label for="">Dân tộc:</label>
                         <br>
-                        <input 
-                            type="text" 
-                            class="form-control"
-                            name="txtuserNation"
-                            [(ngModel)]="user.userNation"
-                            #userNation
-                        >
+                        <input type="text" class="form-control" name="txtuserNation" [(ngModel)]="user.userNation"
+                            #userNation>
                         <label for="">Tình trạng hôn nhân:</label>
                         <br>
-                        <select 
-                            name="txtuserMaritalStatus"
-                            class="form-control"
-                            placeholder="-Chọn tình trạng hôn nhân-"
-                            [(ngModel)]="user.userMaritalStatus"
-                            #userMaritalStatus
-                            >
-                                <option value="nam">Độc thân</option>
-                                <option value="nu">Đã kết hôn</option>
+                        <select name="txtuserMaritalStatus" class="form-control"
+                            placeholder="-Chọn tình trạng hôn nhân-" [(ngModel)]="user.userMaritalStatus"
+                            #userMaritalStatus [ngModelOptions]="{standalone: true}">
+                            <option value="nam">Độc thân</option>
+                            <option value="nu">Đã kết hôn</option>
                         </select>
 
                         <label for="">Ghi chú:</label>
                         <br>
-                        <textarea 
-                            rows="4" cols="50"
-                            class="form-control"
-                            name="txtuserDesc"
-                            [(ngModel)]="user.userDesc"
-                            #userDesc
-                        >
+                        <textarea rows="4" cols="50" class="form-control" name="txtuserDesc" [(ngModel)]="user.userDesc"
+                            #userDesc [ngModelOptions]="{standalone: true}">
                         </textarea>
-                        
+
                         <!-- {{userName.className}} -->
                     </div>
 
                     <!-- <button type="submit" class="btn btn-primary">Lưu</button> -->
-            </div>
+                </div>
+            </fieldset>
         </form>
 
     </div>
 
 
 </div>
-
-
