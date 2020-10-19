@@ -1,8 +1,8 @@
 export class User {
     avatar?: string;
-    userID?: number;
+    userID: number;
     userNo?: string;
-    userName?: string;
+    userName: string;
     userEmail?: string;
     userNation?: string;
     userDesc?: string;
