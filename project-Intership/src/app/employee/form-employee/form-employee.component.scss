@@ -18,6 +18,13 @@ input:valid {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  position: absolute;
+  /* right: -2px; */
+  left: 140px;
+  z-index: 999;
+  top: 100px;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 button{

@@ -50,6 +50,12 @@ export class ManageEmployeeComponent implements OnInit {
     this.router.navigate(['/create/']); //chuyeen huong routing
   }
 
+  changeDeleteEmployee(id: number) {
+    this.userCurrentList = this.userCurrentList.filter(o => +o.userID === +id);
+    this.data.userList = this.userCurrentList;
+    console.log(this.userCurrentList, this.data.userList);
+  }
+
   changeSearch(){
     // JS
     // var input, filter, table, tr, td, i, txtValue;

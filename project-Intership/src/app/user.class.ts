@@ -1,5 +1,5 @@
 export class User {
-    // avatar?: any;
+    avatar?: string;
     userID?: number;
     userNo?: string;
     userName?: string;
