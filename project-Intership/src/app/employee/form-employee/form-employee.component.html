@@ -34,7 +34,7 @@
                         <br>
                         <input type="text" class="form-control" formControlName="userName">
                         <div>
-                           {{checkErr(rfUser.get('userName'))}}
+                           {{formErrors?.userName}}
                         </div>
                         
                     </div>
@@ -43,7 +43,7 @@
                         <br>
                         <input type="text" class="form-control" formControlName="userEmail">
                         <div>
-                            {{checkErr(rfUser.get('userEmail'))}}
+                            {{formErrors?.userEmail}}
                         </div>
                         <label for="">Dân tộc:</label>
                         <br>
