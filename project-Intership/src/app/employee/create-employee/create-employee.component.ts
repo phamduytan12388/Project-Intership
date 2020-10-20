@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/data.service';
-import { User } from 'src/app/user.class';
+import { User } from 'src/app/employee/model/user.class';
 import {ETypeForm} from 'src/app/type-form/const'
 
 @Component({

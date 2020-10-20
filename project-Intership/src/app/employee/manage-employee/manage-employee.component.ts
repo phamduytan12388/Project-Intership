@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { DataService } from 'src/app/data.service';
-import { User } from 'src/app/user.class';
+import { User } from 'src/app/employee/model/user.class';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../data.service';
-import { User } from '../user.class';
+import { User } from './model/user.class';
 
 @Component({
   selector: 'app-employee',

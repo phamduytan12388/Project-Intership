@@ -5,61 +5,80 @@
 <button type = "button" (click) = "ClickIncrease()">+</button>
 <br>
 <button type = "button" (click) = "ClickDecrease()">-</button> -->
-<div class="m-4 p-4 conten-bg" *ngIf="rfUser" [formGroup] = "rfUser">
+<div class="m-4 p-4 conten-bg" [formGroup]="rfUser">
     <div class="panel panel-primary">
-                <div class="d-flex border-bottom align-item">
-                    <h3 class="p-2 mr-auto text-secondary main-text">TẠO MỚI NHÂN VIÊN</h3>
-                    <button type="submit" class="p-2 btn bg-secondary text-white" (click)="onSubmitForm()">Lưu</button>
-                    <button type="click" class="p-2 btn border-secondary" (click) = "onCancelForm()">Hủy</button> 
-                </div>
-                <div class="row panel-body">
-                    <div class="col-6">
-                        <div class="ava-container">
-                            <input #uploadFile type="file" class="upload" (change)="updateAvatar($event)">
-                                <div>
-                                    <img [src]="iconCamera" alt="" class="avatar icon-camera" (click)="uploadFile.click()">
-                                    <img [src]="user.avatar ? user.avatar : defaultLink" alt="Ảnh" class="avatar position-relative" width="100"
-                                        height="100" />
-                                </div>
-                        </div>
-                        <br>
-                        <br>
-                        <input type="checkbox" formControlName="userCheck"> Hoạt động
-                        <br>
-                        <label for="">Mã nhân viên:</label>
-                        <br>
-                        <input type="text" class="form-control" formControlName="userNo">
-
-                        <label for="">Tên nhân viên: <span style="color: red">*</span></label>
-                        <br>
-                        <input type="text" class="form-control" formControlName="userName">
-                        <div>
-                           {{formErrors?.userName}}
-                        </div>
-                        
+        <div class="d-flex border-bottom align-item">
+            <h3 class="p-2 mr-auto text-secondary main-text">TẠO MỚI NHÂN VIÊN</h3>
+            <button type="submit" class="p-2 btn bg-secondary text-white" (click)="onSubmitForm()">Lưu</button>
+            <button type="click" class="p-2 btn border-secondary" (click)="onCancelForm()">Hủy</button>
+        </div>
+        <div class="row panel-body">
+            <div class="col-6">
+                <div class="ava-container">
+                    <input #uploadFile type="file" class="upload" (change)="updateAvatar($event)">
+                    <div>
+                        <img [src]="iconCamera" alt="" class="avatar icon-camera" (click)="uploadFile.click()">
+                        <img [src]="user.avatar ? user.avatar : defaultLink" alt="Ảnh" class="avatar position-relative"
+                            width="100" height="100" />
                     </div>
-                    <div class="col-6">
-                        <label for="">Email:</label>
-                        <br>
-                        <input type="text" class="form-control" formControlName="userEmail">
-                        <div>
-                            {{formErrors?.userEmail}}
-                        </div>
-                        <label for="">Dân tộc:</label>
-                        <br>
-                        <input type="text" class="form-control" formControlName="userNation">
-                        <label for="">Tình trạng hôn nhân:</label>
-                        <br>
-                        <select class="form-control" formControlName="userMaritalStatus">
-                            <option value="nam">Độc thân</option>
-                            <option value="nu">Đã kết hôn</option>
-                        </select>
+                </div>
+                <br>
+                <br>
+                <input type="checkbox" formControlName="userCheck"> Hoạt động
+                <br>
+                <label for="">Mã nhân viên:</label>
+                <br>
+                <input type="text" class="form-control" formControlName="userNo">
 
-                        <label for="">Ghi chú:</label>
-                        <br>
-                        <textarea rows="4" cols="50" class="form-control" formControlName="userDesc">
+                <label for="">Tên nhân viên: <span style="color: red">*</span></label>
+                <br>
+                <input type="text" class="form-control" formControlName="userName">
+                <div>
+                    {{formErrors?.userName}}
+                </div>
+
+            </div>
+            <div class="col-6">
+                <label for="">Email:</label>
+                <br>
+                <input type="text" class="form-control" formControlName="userEmail">
+                <div>
+                    {{formErrors?.userEmail}}
+                </div>
+                <label for="">Dân tộc:</label>
+                <br>
+                <input type="text" class="form-control" formControlName="userNation">
+                <label for="">Tình trạng hôn nhân:</label>
+                <br>
+                <select class="form-control" formControlName="userMaritalStatus">
+                    <option value="nam">Độc thân</option>
+                    <option value="nu">Đã kết hôn</option>
+                </select>
+
+                <label for="">Ghi chú:</label>
+                <br>
+                <textarea rows="4" cols="50" class="form-control" formControlName="userDesc">
                         </textarea>
+            </div>
+        </div>
+
+        <ng-template #workChild let-list="list" let-name="name">
+            <ng-container [formArrayName]="name">
+                <ng-container *ngFor="let item of list; let i = index;">
+                    <div [formGroupName]="i">
+                        <input type="text" formControlName="workName">
+                        <input type="text" formControlName="workDesc">
+                        <!-- <ng-container *ngIf="item.get('workItem')?.controls.length">
+                            <ng-container
+                                *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(item.get('workItem')).controls, name: name + 'z' + i }">
+                            </ng-container>
+                        </ng-container> -->
                     </div>
-                </div>
+                </ng-container>
+            </ng-container>
+        </ng-template>
+        <ng-container
+            *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(formatWorkArray(rfUser.get('works')).controls[0].get('workItem')).controls , name: 'workItem' }">
+        </ng-container>
     </div>
 </div>
