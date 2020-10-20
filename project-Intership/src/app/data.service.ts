@@ -25,16 +25,23 @@ export class DataService {
                 workDesc: 'Mo ta 2'
               },
               workItem: [
-                {
-                  work: {
-                    workName: 'Cong viec 3',
-                    workDesc: 'Mo ta 3'
-                  },
-                  workItem: []
-                }
+                // {
+                //   work: {
+                //     workName: 'Cong viec 3',
+                //     workDesc: 'Mo ta 3'
+                //   },
+                //   workItem: []
+                // }
               ]
             }
           ]
+        },
+        {
+          work: {
+            workName: 'Cong viec K',
+            workDesc: 'Mo ta K'
+          },
+          workItem: []
         }
       ]
     },

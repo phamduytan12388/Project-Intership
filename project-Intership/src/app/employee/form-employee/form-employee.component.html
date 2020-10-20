@@ -62,23 +62,61 @@
             </div>
         </div>
 
-        <ng-template #workChild let-list="list" let-name="name">
-            <ng-container [formArrayName]="name">
+        <ng-template #workChild let-list="list" let-nameForm="nameForm">
+            <div [formArrayName]="nameForm">
                 <ng-container *ngFor="let item of list; let i = index;">
                     <div [formGroupName]="i">
                         <input type="text" formControlName="workName">
-                        <input type="text" formControlName="workDesc">
-                        <!-- <ng-container *ngIf="item.get('workItem')?.controls.length">
+                        <input type="text" formControlName="workDesc" (keyup)="formAAA(item)">
+                        <ng-container *ngIf="item.get('workItem') && item.get('workItem').controls.length">
                             <ng-container
-                                *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(item.get('workItem')).controls, name: name + 'z' + i }">
+                                *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(item.get('workItem')).controls, nameForm: 'workItem' }">
                             </ng-container>
-                        </ng-container> -->
+                        </ng-container>
                     </div>
                 </ng-container>
+            </div>
+        </ng-template>
+        <ng-container
+            *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(rfUser.get('works')).controls , nameForm: 'works' }">
+        </ng-container>
+
+
+        <!-- <div [formArrayName]="'works'" >
+            <ng-container *ngFor="let item of formatWorkArray(rfUser.get('works')).controls; let i = index;">
+                <div [formGroupName]="i">
+                    <input type="text" formControlName="workName">
+                    <input type="text" formControlName="workDesc">
+                    <ng-container *ngIf="item.get('workItem') && item.get('workItem').controls.length">
+                        <div [formArrayName]="'workItem'">
+                            <ng-container *ngFor="let itemChild of formatWorkArray(item.get('workItem')).controls; let j = index;">
+                                <div [formGroupName]="j">
+                                    <input type="text" formControlName="workName" (keyup)="formAAA(item)">
+                                    <input type="text" formControlName="workDesc">
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+
+        <ng-template #recursiveList let-controls="controls" let-prefix="prefix">
+            <ng-container *ngFor="let item of controls; let i = index">
+                <div class="tree-item" [formGroup]="rfUser.get(prefix + i)">
+                    <input type="text" formControlName="workName" (keyup)="formAAA(item)">
+                </div>
+                <div class="sub-tree" *ngIf="item.get('workItem')?.controls?.length">
+                    <ng-container
+                        *ngTemplateOutlet="recursiveList; context:{ controls: item.get('workItem').controls, prefix: prefix + i + '.workItem.'  }">
+                    </ng-container>
+                </div>
             </ng-container>
         </ng-template>
         <ng-container
-            *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(formatWorkArray(rfUser.get('works')).controls[0].get('workItem')).controls , name: 'workItem' }">
-        </ng-container>
+            *ngTemplateOutlet="recursiveList; context:{ controls: formatWorkArray(rfUser.get('works')).controls, prefix: 'works.' }">
+        </ng-container> -->
+
+
     </div>
 </div>

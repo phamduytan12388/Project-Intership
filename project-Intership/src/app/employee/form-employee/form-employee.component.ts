@@ -127,11 +127,11 @@ export class FormEmployeeComponent implements OnInit {
     });
   }
 
-  formatWorkArray(control: AbstractControl): FormArray{
+  formatWorkArray(control: AbstractControl): FormArray {
     return (control as FormArray);
   }
 
-  
+
 
   // addItem(): void {
   //   this.works = this.rfUser.get('works') as FormArray;
@@ -205,5 +205,9 @@ export class FormEmployeeComponent implements OnInit {
       }
     }
     return errorMessages;
+  }
+
+  formAAA(event) {
+    console.log(this.formatWorkArray(event.get('workItem')));
   }
 }
