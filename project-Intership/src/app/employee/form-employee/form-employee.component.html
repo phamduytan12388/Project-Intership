@@ -32,7 +32,7 @@
 
                 <label for="">Tên nhân viên: <span style="color: red">*</span></label>
                 <br>
-                <input type="text" class="form-control" formControlName="userName">
+                <input type="text" class="form-control" formControlName="userName" (keyup)="name$.next($event.target.value)">
                 <div>
                     {{formErrors?.userName}}
                 </div>
@@ -61,24 +61,63 @@
                         </textarea>
             </div>
         </div>
-
-        <ng-template #workChild let-list="list" let-name="name">
-            <ng-container [formArrayName]="name">
-                <ng-container *ngFor="let item of list; let i = index;">
+        <!-- <ng-template #workChild let-list="list" let-prefix="prefix">
+            <ng-container *ngFor="let item of list; let i = index;">
+                <div [formGroup]="rfUser.get(prefix + i)">
                     <div [formGroupName]="i">
-                        <input type="text" formControlName="workName">
-                        <input type="text" formControlName="workDesc">
-                        <!-- <ng-container *ngIf="item.get('workItem')?.controls.length">
-                            <ng-container
-                                *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(item.get('workItem')).controls, name: name + 'z' + i }">
-                            </ng-container>
-                        </ng-container> -->
+                    <input type="text" formControlName="workName">
+                    <input type="text" formControlName="workDesc">
                     </div>
+                </div>
+                <ng-container *ngIf="item.get('workItem')?.controls.length">
+                    <ng-container
+                        *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(item.get('workItem')).controls, prefix: prefix + i + '.workItem.' }">
+                    </ng-container>
                 </ng-container>
             </ng-container>
         </ng-template>
+
         <ng-container
-            *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(formatWorkArray(rfUser.get('works')).controls[0].get('workItem')).controls , name: 'workItem' }">
-        </ng-container>
+            *ngTemplateOutlet="workChild; context:{ list: formatWorkArray(rfUser.get('works')).controls , prefix: 'works.' }">
+        </ng-container> -->
+
+        <ng-template #recursiveList let-controls="controls" let-prefix="prefix" let-marLeft="marLeft">
+            <ng-container *ngFor="let item of controls; let i = index">
+                <ng-container class="tree-item" [formGroup]="rfUser.get(prefix + i)">
+                    <tr>
+                        <td>
+                            <div [ngStyle]="{'margin-left': marLeft + 'px'}">
+                                <input type="text" formControlName="workName">
+                            </div>
+                        </td>
+                        <td><input type="text" formControlName="workDesc"></td>
+                        <td>
+                            <button class="fa fa-plus" aria-hidden="true" type="button"
+                                (click)="addItem(controls)"></button>
+                            <button class="fa fa-plus-square" aria-hidden="true" type="button"
+                                (click)="addItem(formatWorkArray(item.get('workItem')))"></button>
+                            <button class="fa fa-trash" aria-hidden="true" type="button"
+                                (click)="deleteItem(controls, i)"></button>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="item.get('workItem')?.controls?.length">
+                    <ng-container
+                        *ngTemplateOutlet="recursiveList; context:{ controls: item.get('workItem').controls, prefix: prefix + i + '.workItem.', marLeft: marLeft + 15  }">
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </ng-template>
+
+        <table>
+            <tr>
+                <th>Tên công việc</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+            </tr>
+            <ng-container
+                *ngTemplateOutlet="recursiveList; context:{ controls: formatWorkArray(rfUser.get('works')).controls, prefix: 'works.', marLeft: 0 }">
+            </ng-container>
+        </table>
     </div>
 </div>

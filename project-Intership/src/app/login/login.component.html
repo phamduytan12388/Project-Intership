@@ -1,0 +1,37 @@
+<div [formGroup]="rfLogin">
+    <div class="row mx-0">
+        <div class="col-6 col-sm-6 col-md-7 col-lg-9">
+            <img [src]="iconCamera" alt="" class="avatar">
+        </div>
+        <div class=" col-6 col-sm-6 col-md-5 col-lg-3 forn-content">
+            <h2 class="forn-bys">BYS AQUACULTURE</h2>
+            <div class="input-container">
+                <div class="input-group-prepend">
+                    <div class="input-group-text fa fa-envelope-o icon"></div>
+                </div>
+                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username"
+                    formControlName="username">
+            </div>
+            <div class="font-word-red">
+                {{formErrors?.username}}
+            </div>
+            <br>
+            <div class="input-container">
+                <div class="input-group-prepend">
+                    <div class="input-group-text fa fa-lock icon"></div>
+                </div>
+                <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="password"
+                    formControlName="password">
+            </div>
+            <div class="font-word-red">
+                {{formErrors?.password}}
+                <ng-container *ngIf="!checkLogin">
+                    {{validationMessages.checkLogin}}
+                </ng-container>
+            </div>
+            <button class="font-button btn btn-primary" type="button" (click)="onSubmitForm()">Đăng nhập</button>
+        </div>
+    </div>
+</div>
+
+<!-- <div>Hello</div> -->

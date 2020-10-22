@@ -1,0 +1,117 @@
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { stringify } from 'querystring';
+import { DataService } from '../data.service';
+import { UserLogin } from '../employee/model/user-login';
+import { User } from '../employee/model/user.class';
+import { LoginRoutingModule } from './login-routing.module';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  public rfLogin: FormGroup;
+  public userLogin: UserLogin = new UserLogin;
+  public checkLogin: boolean = true;
+  validationMessages = {
+    required: 'Trường này là bắt buộc nhập',
+    formatLogin: 'Định dạng tên đăng nhập chưa đúng',
+    checkLogin: 'Tài khoản mật khẩu chưa đúng'
+  };
+  invalidMessages: string[] = [];
+  formErrors = {
+    username: '',
+    password: ''
+  };
+  iconCamera = "https://i.pinimg.com/originals/d4/bc/c4/d4bcc46e371e194b20854acd1ba3a86b.jpg";
+  constructor(private fb: FormBuilder
+    , private router: Router
+    , private data: DataService) { }
+
+  ngOnInit(): void {
+    this.createFrom();
+  }
+
+  onSubmitForm() {
+    this.userLogin = this.mappingModel(this.rfLogin.getRawValue())
+    localStorage.removeItem('userLogin');
+    if (this.validateForm() && this.checkLoginUsername()) {
+      localStorage.setItem('userLogin', JSON.stringify(this.userLogin));
+      this.router.navigate(['/manage']);
+    }
+  }
+
+  createFrom(): void {
+    this.rfLogin = this.fb.group({
+      username: [this.userLogin.username, Validators.required],
+      password: [this.userLogin.password, Validators.required]
+    });
+  }
+
+  getInvalidMessages(
+    form: FormGroup,
+    formErrors: object): string[] {
+    if (!form) { return; }
+    const errorMessages = [];
+    for (let field in formErrors) {
+      formErrors[field] = '';
+      const control = form.get(field);
+      if (control && !control.valid) {
+        for (const key in control.errors) {
+          formErrors[field] += this.validationMessages[key] + '';
+          break;
+        }
+      }
+    }
+    for (const key in formErrors) {
+      if (formErrors.hasOwnProperty(key) && formErrors[key].length > 0) {
+        errorMessages.push(formErrors[key]);
+      }
+    }
+    return errorMessages;
+  }
+
+  validateForm(): boolean {
+    this.invalidMessages = this.getInvalidMessages(
+      this.rfLogin,
+      this.formErrors
+    );
+
+    return this.invalidMessages.length === 0;
+  }
+
+  checkLoginUsername(): boolean {
+    const username = this.userLogin.username;
+    const password = this.userLogin.password;
+    const check = (this.data.login(username, password));
+    if ((username && password) && check)
+      return this.checkLogin = true;
+    else
+      return this.checkLogin = false;
+    ;
+  }
+
+  // userLoginCheck(control: AbstractControl): ValidationErrors | null {
+  //   return (Array.isArray(control.value) && !control.value.length) ||
+  //     (!Array.isArray(control.value) &&
+  //       (control.value === '' ||
+  //         control.value === null ||
+  //         (typeof control.value === 'string' && control.value.trim() === '')))
+  //     ? {
+  //       userRequired: {
+  //         valid: false
+  //       }
+  //     }
+  //     : null;
+  // }
+
+  mappingModel(formValue: any): UserLogin {
+    return {
+      username: formValue.username,
+      password: formValue.password,
+    }
+  }
+}
