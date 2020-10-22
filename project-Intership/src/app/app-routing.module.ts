@@ -6,13 +6,21 @@ import { EmployeeComponent } from './employee/employee.component';
 import { FormEmployeeComponent } from './employee/form-employee/form-employee.component';
 import { ManageEmployeeComponent } from './employee/manage-employee/manage-employee.component';
 import { ViewEmployeeComponent } from './employee/view-employee/view-employee.component';
+import { GuardService } from './guard.service';
+import { LoginComponent } from './login/login.component';
+
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/employee', pathMatch: 'full' },
+  { path: '', redirectTo: '/employee', pathMatch: 'full' },
   {
-    path: 'auth',
-    loadChildren: () => import('./employee/employee-routing.module').then(mod => mod.EmployeeRoutingModule)
-},
+    path: 'employee',
+    loadChildren: () => import('./employee/employee.module').then(mod => mod.EmployeeModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
 ];
 
 @NgModule({

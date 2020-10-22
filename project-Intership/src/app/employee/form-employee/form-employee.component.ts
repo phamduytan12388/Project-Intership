@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, NgForm, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, NgForm, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { DataService } from 'src/app/data.service';
 import { User, WorkItem } from '../model/user.class';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ETypeForm } from 'src/app/type-form/const';
 import { Work } from '../model/work';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class FormEmployeeComponent implements OnInit {
   @Input() type: string;
   public rfUser: FormGroup
   public works: FormArray;
+  name$: BehaviorSubject<string> = new BehaviorSubject('');
   isSubmit: boolean;
   typeForm = ETypeForm;
   public user: User = new User();
@@ -47,6 +49,10 @@ export class FormEmployeeComponent implements OnInit {
       this.user = this.userCurrentList.find(o => o.userID == this.id);
     }
     this.createForm();
+    this.name$.pipe(
+      debounceTime(100),
+      distinctUntilChanged(),
+    ).subscribe(query => this.validateForm());
   }
 
   validateEmail(email) {
@@ -67,8 +73,6 @@ export class FormEmployeeComponent implements OnInit {
       }
       this.router.navigate(['/manage']);
     }
-
-
   }
 
   onCancelForm(): void {
@@ -104,7 +108,7 @@ export class FormEmployeeComponent implements OnInit {
   createForm(): void {
     this.rfUser = this.fb.group({
       userCheck: [this.user.userCheck, []],
-      userName: [this.user.userName, [Validators.required, Validators.minLength(5)]],
+      userName: [this.user.userName, [Validators.required]],
       userNo: [this.user.userNo, []],
       userEmail: [this.user.userEmail, [Validators.email]],
       userNation: [this.user.userNation, []],
@@ -139,6 +143,21 @@ export class FormEmployeeComponent implements OnInit {
   //   console.log(this.rfUser.getRawValue().works);
 
   // }
+
+  addItem(works: FormArray): void {
+    const group = works;
+    group.push(this.fb.group({
+      workName: '',
+      workDesc: '',
+      workItem: this.fb.array([])
+    }));
+    console.log(this.rfUser);
+  }
+
+  deleteItem(works: any, i: number): void{
+    const control = works;
+    control.splice(i,1);
+  }
 
   // onAddHobby(){
   //   const control=new FormControl(null,Validators.required);
