@@ -25,15 +25,7 @@ export class DataService {
                 workName: 'Cong viec 1.2',
                 workDesc: 'Mo ta 1.2'
               },
-              workItem: [
-                {
-                  work: {
-                    workName: 'Cong viec 1.3',
-                    workDesc: 'Mo ta 1.3'
-                  },
-                  workItem: []
-                }
-              ]
+              workItem: []
             }
           ]
         },
@@ -51,11 +43,10 @@ export class DataService {
               workItem: []
             }
           ]
-        },
-      ]
-    },
-    { userID: 2, userName: 'loc', userNo: '002', userEmail: 'loc@gmail.com' }];
-
+        }
+      ],
+    }]
+    
   public userLogin: UserLogin[] =
     [
       {
@@ -81,7 +72,7 @@ export class DataService {
     return this.userLogin.some(el => el.username === username && el.password === password)
   }
 
-  public isCanActivate(): boolean{
+  public isCanActivate(): boolean {
     const userLogin = localStorage.getItem('userLogin');
     return (userLogin) ? true : false;
   }
