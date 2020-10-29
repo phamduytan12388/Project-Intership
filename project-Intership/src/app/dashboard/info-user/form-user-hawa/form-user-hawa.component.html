@@ -1,0 +1,111 @@
+<div>
+    <div class="font-text font-text-1">XEM THÔNG TIN CÁ NHÂN/HỘ GIA ĐÌNH</div>
+    <div class="font-text font-text-2">
+        <i>(View individual/household infomation)</i>
+    </div>
+    <form class="form" [formGroup]="fgUserHawa">
+        <div>
+            <br>
+            <div class="form1">
+                <label for="">Mã tài khoản:
+                    <br>
+                    <i>(Account ID)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="coCode">
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="form1">
+                <label for="">Loại chủ rừng:
+                    <br>
+                    <i>(Forest Owner type)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="supplyChainTypes">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">Tên cá nhân/Hộ gia đình:
+                    <br>
+                    <i>(Individual/Householder name)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="fullName">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">Số điện thoại di động:
+                    <br>
+                    <i>(Cell phone)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="cellphoneNumber">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">CMND/Thẻ căn cước:
+                    <br>
+                    <i>(ID card No)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="identityCard">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">Ngày cấp:
+                    <br>
+                    <i>(issue date)</i>
+                </label>
+                <input type="date" class="form-control" formControlName="identityCardIssuedDate">
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <br>
+            <br>
+            <div class="form1">
+                <label for="">ĐỊA CHỈ LIÊN HỆ
+                    <i>(CONTACT ADDRESS)</i>
+                </label>
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">- Tỉnh thành phố:
+                    <br>
+                    <i>(Province/City)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="province">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">- Quận huyện:
+                    <br>
+                    <i>(District)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="district">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">- Phường/Xã:
+                    <br>
+                    <i>(Ward/Commune)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="commune">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">- Thôn/Bản:
+                    <br>
+                    <i>(Village)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="village">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">- Số nhà/Tên đường:
+                    <br>
+                    <i>(House number/Street)</i>
+                </label>
+                <input type="text" class="form-control" formControlName="street">
+            </div>
+        </div>
+    </form>
+</div>

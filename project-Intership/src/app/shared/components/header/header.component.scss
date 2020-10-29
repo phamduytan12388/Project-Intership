@@ -1,0 +1,45 @@
+.input-container {
+  display: flex;
+  align-items: center;
+  // width: 1916px;
+  width: auto;
+  // margin-bottom: 15px;
+  border-style: outset;
+  margin-left: 2px;
+  margin-right: 2px;
+  }
+
+  .logo{
+      width: 100px;
+      height: 100px;
+      border-left: #696b69;
+  }
+
+  .header{
+      display: flex;
+      flex-direction: column;
+      color: #696b69;
+  }
+
+  .color-green{
+    border-right: 2px solid #696b69;
+    padding-right: 14px;
+    margin-bottom: 0;
+    color: #696b69;
+    font-weight: 700;
+  }
+  
+  .text-font{
+    margin: 0;
+    margin-left: 13px;
+    &-a {
+      font-size: 14px;
+      font-weight: 700;
+
+    }
+    &-b{
+      font-size: 12px;
+      font-weight: 630;
+  }
+    
+  }

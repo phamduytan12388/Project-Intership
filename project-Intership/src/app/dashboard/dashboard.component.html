@@ -1,0 +1,12 @@
+<app-header></app-header>
+<div class="d-flex">
+  <ul class="p-2" nz-menu nzMode="vertical">
+    <li nz-submenu nzTitle="Thông tin tài khoản" nzIcon="user" nzOpen></li>
+    <li nz-submenu nzTitle="Tài khoản cá nhân hộ gia đình" nzIcon="usergroup-add"></li>
+    <li nz-submenu nzTitle="Quản lý tài khoản người dùng" nzIcon="database"></li>
+  </ul>
+  <div class="form">
+    <!-- <app-manage-employee></app-manage-employee> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

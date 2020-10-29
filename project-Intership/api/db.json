@@ -1,0 +1,105 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "userName": "tan",
+      "userNo": "001",
+      "userBirthday": null,
+      "userAmount": null,
+      "userEmail": "tan@gmail.com"
+    },
+    {
+      "id": 2,
+      "userName": "loc",
+      "userNo": "002",
+      "userEmail": "loc@gmail.com"
+    },
+    {
+      "id": 3,
+      "userName": "trang",
+      "userNo": "003",
+      "userEmail": "trang@gmail.com"
+    },
+    {
+      "id": 4,
+      "userName": "my",
+      "userNo": "004",
+      "userEmail": "my@gmail.com"
+    },
+    {
+      "id": 5,
+      "userName": "nhan",
+      "userNo": "005",
+      "userEmail": "nhan@gmail.com"
+    },
+    {
+      "id": 6,
+      "userName": "thao",
+      "userNo": "006",
+      "userEmail": "thao@gmail.com"
+    },
+    {
+      "id": 7,
+      "userName": "ha",
+      "userNo": "007",
+      "userEmail": "ha@gmail.com"
+    },
+    {
+      "id": 8,
+      "userName": "long",
+      "userNo": "008",
+      "userEmail": "long@gmail.com"
+    },
+    {
+      "id": 9,
+      "userName": "quy",
+      "userNo": "009",
+      "userEmail": "quy@gmail.com"
+    },
+    {
+      "id": 10,
+      "userName": "bao",
+      "userNo": "010",
+      "userEmail": "bao@gmail.com"
+    },
+    {
+      "id": 11,
+      "userName": "quyen",
+      "userNo": "011",
+      "userEmail": "quyen@gmail.com"
+    },
+    {
+      "id": 12,
+      "userName": "huy",
+      "userNo": "012",
+      "userEmail": "huy@gmail.com"
+    },
+    {
+      "id": 13,
+      "userName": "nghia",
+      "userNo": "013",
+      "userEmail": "nghia@gmail.com"
+    },
+    {
+      "id": 14,
+      "userName": "tuan",
+      "userNo": "014",
+      "userEmail": "tuan@gmail.com"
+    },
+    {
+      "username": "nhathuy",
+      "password": "j/A02xmQX4OT3QMePQQpmDpJCTwBPzaiWd5kRsBVT/EE/+tTJFlSL7BCxiI7b4XNr+xMt5OnCBK4bRH98ZO4Fw==",
+      "id": 15
+    }
+  ],
+  "userLogin": [
+    {
+      "username": "admin",
+      "password": "1"
+    },
+    {
+      "username": "tan123",
+      "password": "tan123"
+    }
+  ]
+}

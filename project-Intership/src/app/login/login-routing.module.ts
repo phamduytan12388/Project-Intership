@@ -4,6 +4,11 @@ import { LoginComponent } from './login.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  // {
+  //   path: 'employee',
+  //   loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.),
+  //   canActivate: [GuardService]
+  // },
 ];
 
 @NgModule({

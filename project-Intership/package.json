@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "api": "json-server api/db.json --routes api/routes.json --no-cors=false"
   },
   "private": true,
   "dependencies": {
@@ -20,9 +21,15 @@
     "@angular/platform-browser-dynamic": "~10.1.4",
     "@angular/router": "~10.1.4",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "angular-notifier": "^6.0.1",
+    "angular2-notifications": "^9.0.0",
     "bootstrap": "^4.5.2",
+    "crypto-js": "^4.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
+    "json-server": "^0.16.2",
+    "ng-zorro-antd": "^10.0.2",
+    "notify-angular": "^3.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

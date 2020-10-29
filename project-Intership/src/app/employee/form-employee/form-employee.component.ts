@@ -15,7 +15,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./form-employee.component.scss']
 })
 export class FormEmployeeComponent implements OnInit {
-  @Input() id: number;
+  @Input() id: string;
   @Input() type: string;
   public rfUser: FormGroup
   public works: FormArray;
@@ -46,13 +46,17 @@ export class FormEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.type !== this.typeForm.create) {
-      this.user = this.userCurrentList.find(o => o.userID == this.id);
+      this.data.getDetailUserData(this.id).
+        subscribe(res => {
+          this.user = res;
+          this.createForm();
+          this.name$.pipe(
+            debounceTime(100),
+            distinctUntilChanged(),
+          ).subscribe(query => this.validateForm());
+        });
     }
     this.createForm();
-    this.name$.pipe(
-      debounceTime(100),
-      distinctUntilChanged(),
-    ).subscribe(query => this.validateForm());
   }
 
   validateEmail(email) {
@@ -65,25 +69,31 @@ export class FormEmployeeComponent implements OnInit {
     this.user = this.mappingModel(this.rfUser.getRawValue())
     if (this.validateForm()) {
       if (this.type === this.typeForm.edit) {
-        this.userCurrentList[(this.userCurrentList.findIndex(o => +o.userID === +this.id))] = this.user;
+        // this.userCurrentList[(this.userCurrentList.findIndex(o => +o.id === +this.id))] = this.user;
+        this.data.updateDetailUserData(this.id, this.user).subscribe(res => {
+          console.log(res);
+        });
       }
       if (this.type === this.typeForm.create) {
-        this.user.userID = Math.max(...this.userCurrentList.map(i => i.userID), 0) + 1;
-        this.data.userList.push(this.user);
+        // this.user.id = Math.max(...this.userCurrentList.map(i => +i.id), 0).toString() + 1;
+        // this.data.userList.push(this.user);
+        this.data.addDetailUserData(this.user).subscribe(res => {
+          console.log(res);
+        });
       }
-      this.router.navigate(['/manage']);
+      this.router.navigate(['/list']);
     }
   }
 
   onCancelForm(): void {
     this.rfUser.reset();
-    this.router.navigate(['/manage']);
+    this.router.navigate(['/list']);
   }
 
-  onResertForm(formUser: NgForm) {
-    formUser.resetForm();
-    this.router.navigate(['/manage']);
-  }
+  // onResertForm(formUser: NgForm) {
+  //   formUser.resetForm();
+  //   this.router.navigate(['/list']);
+  // }
 
   updateAvatar(event) {
     this.getBase64(event.target.files[0]).subscribe(res => {
@@ -110,12 +120,14 @@ export class FormEmployeeComponent implements OnInit {
       userCheck: [this.user.userCheck, []],
       userName: [this.user.userName, [Validators.required]],
       userNo: [this.user.userNo, []],
+      userBirthday: [this.user.userBirthday, []],
+      userAmount: [this.user.userAmount, []],
       userEmail: [this.user.userEmail, [Validators.email]],
       userNation: [this.user.userNation, []],
       userMaritalStatus: [this.user.userEmail, []],
       userDesc: [this.user.userDesc, []],
-      works: this.fb.array(
-        this.user.works.map(el => this.createWork(el)))
+      // works: this.fb.array(
+      //   this.user.works.map(el => this.createWork(el)))
     });
     if (this.type === this.typeForm.view) {
       this.rfUser.disable();
@@ -154,9 +166,9 @@ export class FormEmployeeComponent implements OnInit {
     console.log(this.rfUser);
   }
 
-  deleteItem(works: any, i: number): void{
+  deleteItem(works: any, i: number): void {
     const control = works;
-    control.splice(i,1);
+    control.splice(i, 1);
   }
 
   // onAddHobby(){
@@ -166,9 +178,11 @@ export class FormEmployeeComponent implements OnInit {
 
   mappingModel(formValue: any): User {
     return {
-      userID: this.id,
+      id: this.id,
       userName: formValue.userName,
       userNo: formValue.userNo,
+      userBirthday: formValue.userBirthday,
+      userAmount: formValue.userAmount,
       userEmail: formValue.userEmail,
       works: formValue.works,
       // userNation: formValue.userNation,

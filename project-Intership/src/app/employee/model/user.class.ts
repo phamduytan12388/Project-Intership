@@ -2,9 +2,11 @@ import { Work } from './work';
 
 export class User {
     avatar?: string;
-    userID: number;
+    id: string;
     userNo?: string;
     userName: string;
+    userBirthday?: Date;
+    userAmount?: number;
     userEmail?: string;
     userNation?: string;
     userDesc?: string;

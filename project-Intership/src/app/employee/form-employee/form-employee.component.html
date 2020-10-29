@@ -32,10 +32,17 @@
 
                 <label for="">Tên nhân viên: <span style="color: red">*</span></label>
                 <br>
-                <input type="text" class="form-control" formControlName="userName" (keyup)="name$.next($event.target.value)">
+                <input type="text" class="form-control" formControlName="userName"
+                    (keyup)="name$.next($event.target.value)">
                 <div>
                     {{formErrors?.userName}}
                 </div>
+                <label for="">Ngày sinh:</label>
+                <br>
+                <input type="date" class="form-control" formControlName="userBirthday">
+                <label for="">Tiền:</label>
+                <br>
+                <input type="text" class="form-control" formControlName="userAmount">
 
             </div>
             <div class="col-6">
@@ -59,6 +66,7 @@
                 <br>
                 <textarea rows="4" cols="50" class="form-control" formControlName="userDesc">
                         </textarea>
+                
             </div>
         </div>
         <!-- <ng-template #workChild let-list="list" let-prefix="prefix">
@@ -82,7 +90,7 @@
         </ng-container> -->
 
         <ng-template #recursiveList let-controls="controls" let-prefix="prefix" let-marLeft="marLeft">
-            <ng-container *ngFor="let item of controls; let i = index">
+            <ng-container formArrayName = 'works' *ngFor="let item of controls; let i = index">
                 <ng-container class="tree-item" [formGroup]="rfUser.get(prefix + i)">
                     <tr>
                         <td>
@@ -109,7 +117,7 @@
             </ng-container>
         </ng-template>
 
-        <table>
+        <!-- <table>
             <tr>
                 <th>Tên công việc</th>
                 <th>Mô tả</th>
@@ -118,6 +126,6 @@
             <ng-container
                 *ngTemplateOutlet="recursiveList; context:{ controls: formatWorkArray(rfUser.get('works')).controls, prefix: 'works.', marLeft: 0 }">
             </ng-container>
-        </table>
+        </table> -->
     </div>
 </div>

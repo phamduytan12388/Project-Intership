@@ -9,6 +9,7 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TanDatePipe } from '../customDatePipe';
 
 
 @NgModule({
@@ -18,12 +19,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ManageEmployeeComponent,
     CreateEmployeeComponent,
     EditEmployeeComponent,
-    ViewEmployeeComponent],
+    ViewEmployeeComponent,
+    TanDatePipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     EmployeeRoutingModule
+  ],
+  exports: [
+    ManageEmployeeComponent
   ]
 })
 export class EmployeeModule { }

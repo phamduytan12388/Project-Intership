@@ -6,6 +6,10 @@ import { DataService } from '../data.service';
 import { UserLogin } from '../employee/model/user-login';
 import { User } from '../employee/model/user.class';
 import { LoginRoutingModule } from './login-routing.module';
+import * as CryptoJS from 'crypto-js';
+import { UserHawa } from '../employee/model/user-hawa';
+import { UserLoginHawa } from '../employee/model/user-login-hawa';
+import { UserDetailHawa } from '../employee/model/user-detail-hawa';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +19,8 @@ import { LoginRoutingModule } from './login-routing.module';
 export class LoginComponent implements OnInit {
   public rfLogin: FormGroup;
   public userLogin: UserLogin = new UserLogin;
+  public userLoginHawa: UserLoginHawa = new UserLoginHawa();
+  public userDetailHawa: UserDetailHawa = new UserDetailHawa;
   public checkLogin: boolean = true;
   validationMessages = {
     required: 'Trường này là bắt buộc nhập',
@@ -32,16 +38,43 @@ export class LoginComponent implements OnInit {
     , private data: DataService) { }
 
   ngOnInit(): void {
+    // this.data.getUserLoginData();
     this.createFrom();
+    // console.log(this.crypto(password));
+  }
+
+  crypto(password: string) {
+    // var CryptoJS = require("crypto-js");  
+
+    // const parsedSalt = CryptoJS.enc.Base64.parse(CryptoUtil.salt);
+    const parsedSalt = CryptoJS.enc.Base64.parse('uGa5buIox4+fX4ViZ7p3TyR4cx5evpoBqFsE8dueBqheYs6faRQ1VxCr0oQ1hqXQGyjc8rKA5kWXjHMxAByt0Q==');
+    const result = CryptoJS.PBKDF2(password, parsedSalt, {
+      keySize: 64 / 4,
+      iterations: 1000,
+      hasher: CryptoJS.algo.SHA512
+    });
+    return CryptoJS.enc.Base64.stringify(result);
   }
 
   onSubmitForm() {
-    this.userLogin = this.mappingModel(this.rfLogin.getRawValue())
-    localStorage.removeItem('userLogin');
-    if (this.validateForm() && this.checkLoginUsername()) {
-      localStorage.setItem('userLogin', JSON.stringify(this.userLogin));
-      this.router.navigate(['/manage']);
-    }
+    this.userLogin = this.mappingModel(this.rfLogin.getRawValue());
+    // localStorage.removeItem('userLogin');
+    // if (this.validateForm() && this.checkLoginUsername()) {
+    //   localStorage.setItem('userLogin', JSON.stringify(this.userLogin));
+    //   this.router.navigate(['/employee/list']);
+    // }
+    this.userLogin.password = this.crypto(this.userLogin.password);
+    this.data.postUserHawa(this.userLogin).subscribe(res => {
+      localStorage.setItem('userLoginHawa', JSON.stringify(res));
+      this.data.getUserLoginHawa(res.jwtToken).subscribe(el => {
+        // this.userDetailHawa = el;
+        console.log(el);
+        localStorage.setItem('userDetailHawa', JSON.stringify(el))
+        this.router.navigate(['/dashboard']);
+      })
+
+      // localStorage.getItem('')
+    });
   }
 
   createFrom(): void {
