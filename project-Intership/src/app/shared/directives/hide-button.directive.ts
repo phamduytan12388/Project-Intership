@@ -3,21 +3,21 @@ import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/cor
 @Directive({
   selector: '[appHighlight]'
 })
-export class HideButtonDirective{
+export class HideButtonDirective {
 
 
   constructor(private el: ElementRef) { }
 
-  @Input('appHighlight') check: boolean
-  
-  @HostListener('click') onClick() {
+  @Input('appHighlight') check: boolean;
+
+  @HostListener('click') onClick(): void {
     this.hideButton(this.check);
   }
-  
-  private hideButton(check: boolean){
+
+  private hideButton(check: boolean): void {
     this.el.nativeElement.hidden = check;
     // document.getElementById("test").hidden = check;
   }
 
-  
+
 }

@@ -6,22 +6,22 @@ import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  // {
-  //   path: 'dashboard',
-  //   loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
-  //   canActivate: [GuardService]
-  // },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent,
-  // },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
+    canActivate: [GuardService]
   },
-]
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  //   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  //   {
+  //     path: 'dashboard',
+  //     component: DashboardComponent,
+  //   },
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
