@@ -16,7 +16,6 @@ import { DashboardModule } from '../dashboard/dashboard.module';
     FormsModule,
     ReactiveFormsModule,
     LoginRoutingModule,
-    DashboardModule
   ]
 })
 export class LoginModule { }

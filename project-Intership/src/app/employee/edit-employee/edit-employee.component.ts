@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from 'src/app/data.service';
-import { ETypeForm } from 'src/app/type-form/const';
-import { User } from 'src/app/employee/model/user.class';
+import { DataService } from 'src/app/shared/serivice/data.service';
+import { User } from 'src/app/shared/model/user.class';
+import { ETypeForm } from 'src/app/shared/constant/type-form';
 
 @Component({
   selector: 'app-edit-employee',

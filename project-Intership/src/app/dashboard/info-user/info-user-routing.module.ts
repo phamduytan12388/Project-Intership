@@ -10,11 +10,11 @@ const routes: Routes = [
   {
     path: '', component: InfoUserComponent,
     children: [
-      { path: '', redirectTo: 'formUser', pathMatch: 'full' },
-      { path: 'formUser', component: FormUserHawaComponent },
-      { path: 'createUser', component: CreateUserHawaComponent },
-      { path: 'editUser', component: EditUserHawaComponent },
-      { path: 'viewUser', component: ViewUserHawaComponent },
+      { path: '', redirectTo: 'form-user', pathMatch: 'full' },
+      { path: 'form-user', component: FormUserHawaComponent },
+      { path: 'create-user', component: CreateUserHawaComponent },
+      { path: 'edit-user', component: EditUserHawaComponent },
+      { path: 'view-user', component: ViewUserHawaComponent },
     ]
   },
 ];

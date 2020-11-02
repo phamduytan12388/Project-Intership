@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from './components/components.module';
+import { HideButtonDirective } from './directives/hide-button.directive';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { ComponentsModule } from './components/components.module';
     ComponentsModule
   ],
   exports: [
-    ComponentsModule
+    ComponentsModule,
   ]
 })
 export class SharedModule { }

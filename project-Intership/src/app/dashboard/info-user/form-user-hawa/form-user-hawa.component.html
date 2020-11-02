@@ -3,7 +3,7 @@
     <div class="font-text font-text-2">
         <i>(View individual/household infomation)</i>
     </div>
-    <form class="form" [formGroup]="fgUserHawa">
+    <form class="form" *ngIf="fgUserHawa" [formGroup]="fgUserHawa">
         <div>
             <br>
             <div class="form1">
@@ -21,7 +21,10 @@
                     <br>
                     <i>(Forest Owner type)</i>
                 </label>
-                <input type="text" class="form-control" formControlName="supplyChainTypes">
+                <!-- <input type="text" class="form-control" formControlName="supplyChainTypes"> -->
+                <select class="form-control" formControlName="forestOwnerType">
+                    <option *ngFor="let item of forestOwnerTypeList" [value]="item.code" >{{item.displayText}}</option>
+                </select>
             </div>
             <br>
             <div class="form1">
@@ -53,7 +56,8 @@
                     <br>
                     <i>(issue date)</i>
                 </label>
-                <input type="date" class="form-control" formControlName="identityCardIssuedDate">
+                <!-- <input type="date" class="form-control" formControlName="identityCardIssuedDate"> -->
+                <nz-date-picker formControlName="identityCardIssuedDate" [nzFormat]="'dd/MM/yyyy'"></nz-date-picker>
             </div>
         </div>
 
@@ -72,7 +76,10 @@
                     <br>
                     <i>(Province/City)</i>
                 </label>
-                <input type="text" class="form-control" formControlName="province">
+                <!-- <input type="text" class="form-control" formControlName="province"> -->
+                <select class="form-control" (change)="ChangeProvinceList($event.target.value)"  formControlName="province">
+                    <option *ngFor="let item of allProvinceList" [value]="item.code" >{{item.name}}</option>
+                </select>
             </div>
             <br>
             <div class="form1">
@@ -80,7 +87,10 @@
                     <br>
                     <i>(District)</i>
                 </label>
-                <input type="text" class="form-control" formControlName="district">
+                <!-- <input type="text" class="form-control" formControlName="district"> -->
+                <select class="form-control" (change)="ChangeDistrictList($event.target.value)" formControlName="district">
+                    <option *ngFor="let item of districtceList" [value]="item.code" >{{item.name}}</option>
+                </select>
             </div>
             <br>
             <div class="form1">
@@ -88,7 +98,10 @@
                     <br>
                     <i>(Ward/Commune)</i>
                 </label>
-                <input type="text" class="form-control" formControlName="commune">
+                <!-- <input type="text" class="form-control" formControlName="commune"> -->
+                <select class="form-control" formControlName="commune">
+                    <option *ngFor="let item of wardList" [value]="item.code" >{{item.name}}</option>
+                </select>
             </div>
             <br>
             <div class="form1">
@@ -105,6 +118,14 @@
                     <i>(House number/Street)</i>
                 </label>
                 <input type="text" class="form-control" formControlName="street">
+            </div>
+            <br>
+            <div class="form1">
+                <label for="">- Địa chỉ:
+                    <br>
+                    <i>(Address)</i>
+                </label>
+                <input type="text" class="form-control" value={{getAddress}}>
             </div>
         </div>
     </form>

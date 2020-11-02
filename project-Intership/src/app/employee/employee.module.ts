@@ -9,7 +9,7 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TanDatePipe } from '../customDatePipe';
+import { TanDatePipe } from '../shared/pipe/customDatePipe';
 
 
 @NgModule({

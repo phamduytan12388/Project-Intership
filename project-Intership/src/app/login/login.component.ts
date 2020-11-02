@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { stringify } from 'querystring';
-import { DataService } from '../data.service';
-import { UserLogin } from '../employee/model/user-login';
-import { User } from '../employee/model/user.class';
+import { DataService } from '../shared/serivice/data.service';
+import { UserLogin } from 'src/app/shared/model/user-login';
+import { User } from 'src/app/shared/model/user.class';
 import { LoginRoutingModule } from './login-routing.module';
 import * as CryptoJS from 'crypto-js';
-import { UserHawa } from '../employee/model/user-hawa';
-import { UserLoginHawa } from '../employee/model/user-login-hawa';
-import { UserDetailHawa } from '../employee/model/user-detail-hawa';
+import { UserHawa } from 'src/app/shared/model/user-hawa';
+import { UserLoginHawa } from 'src/app/shared/model/user-login-hawa';
+import { UserDetailHawa } from 'src/app/shared/model/user-detail-hawa';
 
 @Component({
   selector: 'app-login',
@@ -66,14 +66,13 @@ export class LoginComponent implements OnInit {
     this.userLogin.password = this.crypto(this.userLogin.password);
     this.data.postUserHawa(this.userLogin).subscribe(res => {
       localStorage.setItem('userLoginHawa', JSON.stringify(res));
-      this.data.getUserLoginHawa(res.jwtToken).subscribe(el => {
-        // this.userDetailHawa = el;
-        console.log(el);
-        localStorage.setItem('userDetailHawa', JSON.stringify(el))
-        this.router.navigate(['/dashboard']);
-      })
-
+      // this.data.getUserLoginHawa(res.jwtToken).subscribe(el => {
+      //   // this.userDetailHawa = el;
+      //   console.log(el);
+      //   localStorage.setItem('userDetailHawa', JSON.stringify(el));
+      // })
       // localStorage.getItem('')
+      this.router.navigate(['/dashboard']);
     });
   }
 

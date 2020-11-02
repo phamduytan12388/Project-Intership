@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ResponseData } from './response-data';
+import { ResponseData } from '../../response-data';
 import { environment } from 'src/environments/environment';
 
 export class BaseService {

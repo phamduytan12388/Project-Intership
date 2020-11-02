@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
-import { DataService } from 'src/app/data.service';
-import { User, WorkItem } from '../model/user.class';
+import { DataService } from 'src/app/shared/serivice/data.service';
+import { User, WorkItem } from 'src/app/shared/model/user.class';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ETypeForm } from 'src/app/type-form/const';
-import { Work } from '../model/work';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ETypeForm } from 'src/app/shared/constant/type-form';
+import { Work } from 'src/app/shared/model/work';
 
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { DataService } from 'src/app/data.service';
-import { User } from 'src/app/employee/model/user.class';
+import { DataService } from 'src/app/shared/serivice/data.service';
+import { User } from 'src/app/shared/model/user.class';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
 

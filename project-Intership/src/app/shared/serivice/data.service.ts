@@ -1,12 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserLogin } from './employee/model/user-login';
-import { User, WorkItem } from './employee/model/user.class';
+import { UserLogin } from 'src/app/shared/model/user-login';
+import { User, WorkItem } from 'src/app/shared/model/user.class';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserDetailHawa } from './employee/model/user-detail-hawa';
-import { UserLoginHawa } from './employee/model/user-login-hawa';
+import { UserDetailHawa } from 'src/app/shared/model/user-detail-hawa';
+import { UserLoginHawa } from 'src/app/shared/model/user-login-hawa';
 import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
+import { Masterdata } from '../model/masterdata';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class DataService extends BaseService {
   public userLogin: UserLogin[] = []
   
   private countService = new BehaviorSubject(0);
+
 
   currentCount = this.countService.asObservable();
   constructor(public http: HttpClient) { 
@@ -42,6 +44,8 @@ export class DataService extends BaseService {
     return this.http.post<UserLoginHawa>('http://hawadevapi.bys.vn/api/login', userLogin);
   }
 
+
+
   // getUserLoginHawa(token: string): Observable<UserDetailHawa> {
   //   const headers = new Headers();
   //   let tokenParse = JSON.parse(token);        
@@ -58,6 +62,22 @@ export class DataService extends BaseService {
     });
     return this.get('api/user/getdetail', null, headers);
     return this.http.get<any>('http://hawadevapi.bys.vn/api/user/getdetail', { headers: headers });
+  }
+
+  getMasterdataHawa(auth_token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    return this.get('api/data/masterdata?groupsName=EnterpriseForestOwnerType,HouseholdForestOwnerType', null, headers);
+  }
+
+  getAddressMasterDataHawa(auth_token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    return this.get('api/data/addressmasterdata', null, headers);
   }
 
   getDetailUserData(id: string): Observable<User>{

@@ -8,6 +8,7 @@ import { CreateUserHawaComponent } from './create-user-hawa/create-user-hawa.com
 import { EditUserHawaComponent } from './edit-user-hawa/edit-user-hawa.component';
 import { ViewUserHawaComponent } from './view-user-hawa/view-user-hawa.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
     InfoUserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NzDatePickerModule
   ],
   exports:[
     FormUserHawaComponent
