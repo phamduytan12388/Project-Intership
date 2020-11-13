@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 export class BaseService {
   get apiEndpoint(): string {
-    return 'http://hawadevapi.bys.vn/';
+    return 'http://hawaddsapi.bys.vn/';
   }
   constructor(public http: HttpClient) { }
 

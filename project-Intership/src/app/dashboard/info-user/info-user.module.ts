@@ -13,10 +13,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   declarations: [
-    InfoUserComponent, 
-    FormUserHawaComponent, 
-    CreateUserHawaComponent, 
-    EditUserHawaComponent, 
+    InfoUserComponent,
+    FormUserHawaComponent,
+    CreateUserHawaComponent,
+    EditUserHawaComponent,
     ViewUserHawaComponent],
   imports: [
     CommonModule,
@@ -25,7 +25,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     ReactiveFormsModule,
     NzDatePickerModule
   ],
-  exports:[
+  exports: [
     FormUserHawaComponent
   ]
 })

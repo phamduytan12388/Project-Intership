@@ -1,0 +1,194 @@
+<div>
+    <div>
+        <div class="font-text font-text-1">QUẢN LÝ HỒ SƠ KHAI BÁO</div>
+        <div class="font-text font-text-2">
+            <i>(Profile management)</i>
+        </div>
+    </div>
+    <div class="form">
+        <div class="">
+            <div class="row d-flex align-items-center">
+                <div class="font-text font-text-3 ml-0">DANH SÁCH HỒ SƠ ĐĂNG KÝ KHAI THÁC</div>
+                <div class="font-text font-text-4 ml-1">
+                    <i>(HARVEST REGISTRATION PROFILE LIST)</i>
+                </div>
+
+                <div class="format-search ml-auto p-2">
+                    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                        <input type="text" nz-input placeholder="input search text"
+                            (keyup)="search$.next($event.target.value)" [ngModel]="search" />
+                    </nz-input-group>
+                    <ng-template #suffixIconButton>
+                        <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                    </ng-template>
+
+                </div>
+                <div>
+                    <button class="btn btn-primary" [appHighlight]>Tạo mới</button>
+                </div>
+
+            </div>
+            <div class="row d-flex align-items-center ml-0 mb-2">
+                <div class="format-title">
+                    Mã tài khoản
+                </div>
+                <i class="format-text ml-1">
+                    (Account ID):
+                </i>
+                <div class="ml-1">
+                    {{accountId}}
+                </div>
+            </div>
+            <div class="row d-flex flex-wrap ml-0">
+                <div class="format-form">
+                    <label class="format-label" for="">Từ ngày:
+                        <br>
+                        <i>(From date)</i>
+                    </label>
+                    <nz-date-picker [nzFormat]="'dd/MM/yyyy'" nzPlaceHolder="dd/MM/yyyy" [(ngModel)]="fromDate">
+                    </nz-date-picker>
+                </div>
+
+                <div class="format-form">
+                    <label class="format-label" for="">Đến ngày:
+                        <br>
+                        <i>(To date)</i>
+                    </label>
+                    <nz-date-picker [nzFormat]="'dd/MM/yyyy'" nzPlaceHolder="dd/MM/yyyy" [(ngModel)]="toDate">
+                    </nz-date-picker>
+                </div>
+
+                <div class="format-form">
+                    <label class="format-label" for="">Trạng thái:
+                        <br>
+                        <i>(Status)</i>
+                    </label>
+                    <nz-select [(ngModel)]="status" nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option [nzValue]="" nzLabel="-Tất cả (All)-"></nz-option>
+                        <ng-container *ngFor="let item of declareHarvestStatusdList">
+                            <nz-option [nzValue]="item.code" [nzLabel]="item.value"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </div>
+
+                <div class="format-form">
+                    <label class="format-label" for="">Nguồn gốc:
+                        <br>
+                        <i>(Status)</i>
+                    </label>
+                    <nz-select [(ngModel)]="createFromForest" nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option [nzValue]="" nzLabel="-Tất cả (All)-"></nz-option>
+                        <nz-option [nzValue]=true nzLabel="Hồ sơ rừng"></nz-option>
+                        <nz-option [nzValue]=false nzLabel="Hồ sơ mua bán cây đứng"></nz-option>
+                    </nz-select>
+                </div>
+                <div class="format-button d-flex align-items-center mr-3">
+                    <button class="format-button-1" nz-button nzType="primary" (click)="actionFilter()">
+                        <div class="text-uppercase">lọc</div>
+                        <div class="font-italic text-uppercase">(filter)</div>
+                    </button>
+                </div>
+
+                <div class="format-button d-flex align-items-center mr-3">
+                    <button class="format-button-1" nz-button nzType="primary" (click)="deleteFilter()">XÓA LỌC
+                        <br>
+                        <i>(REMOVE FILTER)</i>
+                    </button>
+                </div>
+
+
+            </div>
+            <hr class="mt-3 mb-4">
+            <div>
+                <ng-container *ngIf="harvestForestFilter && declareHarvestStatusdList">
+
+                    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzData]="harvestForestFilter.items"
+                        [nzBordered]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+                        (nzQueryParams)="onQueryParamsChange($event)">
+                        <thead>
+                            <tr>
+                                <th nzwidth="3rem">STT
+                                    <br>
+                                    <i>(No.)</i>
+                                </th>
+                                <th nzwidth="20rem">Mã hồ sơ
+                                    <br>
+                                    <i>(Profile ID)</i>
+                                </th>
+                                <th nzwidth="20rem">Tên hồ sơ
+                                    <br>
+                                    <i>(Profile name)</i>
+                                </th>
+                                <th nzwidth="10rem">Ngày Chứng từ
+                                    <br>
+                                    <i>(Profile date)</i>
+                                </th>
+                                <th nzwidth="10rem">Trạng thái hồ sơ
+                                    <br>
+                                    <i>(Profile status)</i>
+                                </th>
+                                <th nzwidth="10rem">Nguồn gốc
+                                    <br>
+                                    <i>(Created from)</i>
+                                </th>
+                                <th nzwidth="12rem">Thao tác hồ sơ
+                                    <br>
+                                    <i>(Actions on profile)</i>
+                                </th>
+                                <th nzwidth="5rem">Xem RTE
+                                    <br>
+                                    <i>(View RTE)</i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of harvestForestFilter.items; let i=index;">
+                                <td class="text-center">{{ pageSize * (pageIndex -1) + i + 1}}</td>
+                                <td>{{item.profileCode}}</td>
+                                <td>{{ item.profileName }}</td>
+                                <td>{{item.profileDate * 1000 | date: 'dd/MM/yyyy'}}</td>
+                                <td class="d-flex justify-content-center">
+                                    <ng-container *ngFor="let item1 of declareHarvestStatusdList">
+                                        <ng-container *ngIf="item.status === item1.code">
+                                            <ng-container *ngIf="item.status === 'New'">
+                                                <div class="not-yet-status">
+                                                    {{item1.value}}
+                                                    <i>(Not yet submitted)</i>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="item.status === 'Sent'">
+                                                <div class="enough-legal-status">
+                                                    {{item1.value}}
+                                                    <i>(Enough evidences)</i>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="item.standingTreeTraditionId; else elseBlock">
+                                        <div class="forest-profile">
+                                            Mua bán cây đứng
+                                            <i>(Tree Trading)</i>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #elseBlock>
+                                        <div class="forest-profile">
+                                            HS rừng
+                                            <i>(Forest profile)</i>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <i class="fa fa-eye d-flex justify-content-center cursor" aria-hidden="true"
+                                        (click)="viewForest(item.id)"></i>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

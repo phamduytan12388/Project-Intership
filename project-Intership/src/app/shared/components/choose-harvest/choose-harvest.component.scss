@@ -1,0 +1,50 @@
+.font-text {
+    &-1 {
+        font-weight: 700;
+        font-size: 24px;
+        margin-left: 19px;
+    }
+
+    &-2 {
+        font-weight: 500;
+        font-size: 16px;
+        margin-left: 19px;
+    }
+
+    &-3 {
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.4;
+        // margin-left: 19px;
+        &-2 {
+            margin-bottom: 14px;
+        }
+    }
+    &-4 {
+        font-weight: 600;
+        font-size: 15px;
+        margin-left: 19px;
+    }
+
+    &-red {
+        color: red;
+    }
+}
+
+.form {
+    margin-top: 10px;
+    &-red {
+        color: red;
+    }
+
+    &-table{
+        margin-top: 20px;
+    }
+}
+
+:host ::ng-deep {
+    .ant-table-thead > tr > th {
+        text-align: center;
+    }
+}

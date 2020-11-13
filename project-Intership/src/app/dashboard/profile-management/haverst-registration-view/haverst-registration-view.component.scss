@@ -1,0 +1,127 @@
+.form {
+    // display: flex;
+    // justify-content: space-evenly;
+    background: white;
+    margin: 30px;
+    padding-left: 37px;
+    padding-right: 37px;
+    &-1 {
+        display: flex;
+        justify-content: space-between;
+        margin: 0px;
+        padding: 0px;
+    }
+}
+
+.form1 {
+    display: flex;
+    margin-bottom: 17px;
+}
+
+label {
+    width: 319px;
+    font-weight: 500;
+}
+.font-text {
+    &-1 {
+        font-weight: 700;
+        font-size: 24px;
+        margin-left: 19px;
+    }
+
+    &-2 {
+        font-weight: 500;
+        font-size: 16px;
+        margin-left: 19px;
+    }
+
+    &-3 {
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.4;
+        // margin-left: 19px;
+        &-2 {
+            margin-bottom: 14px;
+        }
+    }
+    &-4 {
+        font-weight: 600;
+        font-size: 15px;
+        margin-left: 19px;
+    }
+}
+
+.form-control {
+    width: 354px;
+}
+
+.ant-picker {
+    width: 354px;
+    height: calc(1.5em + 0.75rem + 2px);
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+}
+
+[nz-radio] {
+    display: block;
+    height: 32px;
+    line-height: 32px;
+}
+input {
+    width: 100px;
+    margin-left: 10px;
+}
+
+.ant-radio-disabled + span {
+    color: #4e4e4e;
+    cursor: not-allowed;
+}
+
+.ant-radio-group {
+    margin-left: 11px;
+}
+
+.editable-cell {
+    position: relative;
+    padding: 5px 12px;
+    cursor: pointer;
+}
+
+.editable-row:hover .editable-cell {
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding: 4px 11px;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 17px;
+}
+
+:host ::ng-deep {
+    .ant-table-thead > tr > th {
+        text-align: center;
+    }
+
+    .ant-btn {
+        height: 49px;
+        background: #22784e;
+        border-color: #22784e;
+    }
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.ant-picker {
+    margin-left: 9px;
+    width: 354px;
+    height: calc(1.5em + 0.75rem + 2px);
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+}

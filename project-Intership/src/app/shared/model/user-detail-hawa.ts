@@ -123,5 +123,5 @@ export class UserDetailHawa {
         description: string;
         otherDescription: string;
         canRequest: boolean
-    }[]
+    }[];
 }

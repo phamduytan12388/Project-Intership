@@ -1,12 +1,25 @@
-<app-header></app-header>
-<div class="d-flex">
-  <ul class="p-2" nz-menu nzMode="vertical">
-    <li nz-submenu nzTitle="Thông tin tài khoản" nzIcon="user" nzOpen></li>
-    <li nz-submenu nzTitle="Tài khoản cá nhân hộ gia đình" nzIcon="usergroup-add"></li>
-    <li nz-submenu nzTitle="Quản lý tài khoản người dùng" nzIcon="database"></li>
-  </ul>
-  <div class="form">
-    <router-outlet></router-outlet>
+<div>
+  <div>
+    <app-header></app-header>
+  </div>
+  <!-- <button class="btn btn-primary" (click)="changeView()">View</button>
+<button class="btn btn-primary" (click)="changeForm()">Form</button> -->
+  <div class="d-flex">
+    <ul class="p-2" nz-menu nzMode="inline">
+      <li nz-submenu nzTitle="Thông tin tài khoản" nzIcon="user" nzOpen></li>
+      <li nz-submenu nzTitle="TT cá nhân hộ gia đình" nzIcon="usergroup-add" (click)="changeForm()"></li>
+      <li nz-submenu nzTitle="Quản lý tài khoản người dùng" nzIcon="database">
+        <ul>
+          <li nz-menu-item (click)="changeHaverst()">Hồ sơ rừng</li>
+        </ul>
+        <ul>
+          <li nz-menu-item (click)="changeHaverstList()">Hồ sơ khai thác</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="form">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
 

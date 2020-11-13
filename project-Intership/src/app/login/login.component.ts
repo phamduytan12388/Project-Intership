@@ -18,10 +18,10 @@ import { UserDetailHawa } from 'src/app/shared/model/user-detail-hawa';
 })
 export class LoginComponent implements OnInit {
   public rfLogin: FormGroup;
-  public userLogin: UserLogin = new UserLogin;
-  public userLoginHawa: UserLoginHawa = new UserLoginHawa();
-  public userDetailHawa: UserDetailHawa = new UserDetailHawa;
-  public checkLogin: boolean = true;
+  public userLogin = new UserLogin();
+  public userLoginHawa = new UserLoginHawa();
+  public userDetailHawa = new UserDetailHawa();
+  public checkLogin = true;
   validationMessages = {
     required: 'Trường này là bắt buộc nhập',
     formatLogin: 'Định dạng tên đăng nhập chưa đúng',
@@ -32,10 +32,12 @@ export class LoginComponent implements OnInit {
     username: '',
     password: ''
   };
-  iconCamera = "https://i.pinimg.com/originals/d4/bc/c4/d4bcc46e371e194b20854acd1ba3a86b.jpg";
-  constructor(private fb: FormBuilder
-    , private router: Router
-    , private data: DataService) { }
+  iconCamera = 'https://i.pinimg.com/originals/d4/bc/c4/d4bcc46e371e194b20854acd1ba3a86b.jpg';
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private data: DataService
+  ) { }
 
   ngOnInit(): void {
     // this.data.getUserLoginData();
@@ -43,11 +45,12 @@ export class LoginComponent implements OnInit {
     // console.log(this.crypto(password));
   }
 
-  crypto(password: string) {
+  crypto(password: string): string {
     // var CryptoJS = require("crypto-js");  
 
     // const parsedSalt = CryptoJS.enc.Base64.parse(CryptoUtil.salt);
-    const parsedSalt = CryptoJS.enc.Base64.parse('uGa5buIox4+fX4ViZ7p3TyR4cx5evpoBqFsE8dueBqheYs6faRQ1VxCr0oQ1hqXQGyjc8rKA5kWXjHMxAByt0Q==');
+    const parsedSalt =
+      CryptoJS.enc.Base64.parse('uGa5buIox4+fX4ViZ7p3TyR4cx5evpoBqFsE8dueBqheYs6faRQ1VxCr0oQ1hqXQGyjc8rKA5kWXjHMxAByt0Q==');
     const result = CryptoJS.PBKDF2(password, parsedSalt, {
       keySize: 64 / 4,
       iterations: 1000,
@@ -56,7 +59,7 @@ export class LoginComponent implements OnInit {
     return CryptoJS.enc.Base64.stringify(result);
   }
 
-  onSubmitForm() {
+  onSubmitForm(): void {
     this.userLogin = this.mappingModel(this.rfLogin.getRawValue());
     // localStorage.removeItem('userLogin');
     // if (this.validateForm() && this.checkLoginUsername()) {
@@ -66,6 +69,9 @@ export class LoginComponent implements OnInit {
     this.userLogin.password = this.crypto(this.userLogin.password);
     this.data.postUserHawa(this.userLogin).subscribe(res => {
       localStorage.setItem('userLoginHawa', JSON.stringify(res));
+      localStorage.setItem('jwtToken', JSON.stringify(res.jwtToken));
+      this.data.getHeader(JSON.parse(window.localStorage.getItem('userLoginHawa')).jwtToken);
+
       // this.data.getUserLoginHawa(res.jwtToken).subscribe(el => {
       //   // this.userDetailHawa = el;
       //   console.log(el);
@@ -78,8 +84,8 @@ export class LoginComponent implements OnInit {
 
   createFrom(): void {
     this.rfLogin = this.fb.group({
-      username: [this.userLogin.username, Validators.required],
-      password: [this.userLogin.password, Validators.required]
+      username: [this.userLogin.username],
+      password: [this.userLogin.password]
     });
   }
 
@@ -144,6 +150,6 @@ export class LoginComponent implements OnInit {
     return {
       username: formValue.username,
       password: formValue.password,
-    }
+    };
   }
 }

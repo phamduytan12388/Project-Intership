@@ -15,7 +15,8 @@ import { NotificationsService } from 'angular2-notifications';
 export class ManageEmployeeComponent implements OnInit {
   search$: BehaviorSubject<string> = new BehaviorSubject('');
   public userCurrentList: User[] = [];
-  constructor(private data: DataService,
+  constructor(
+    private data: DataService,
     private router: Router) {
   }
 
@@ -33,8 +34,8 @@ export class ManageEmployeeComponent implements OnInit {
       distinctUntilChanged(),
     ).subscribe(query => {
       this.userCurrentList = this.userCurrentList.filter(item =>
-        item.userName && (item.userName.toLocaleLowerCase().trim().indexOf(query.toLocaleLowerCase().trim()) !== -1))
-    })
+        item.userName && (item.userName.toLocaleLowerCase().trim().indexOf(query.toLocaleLowerCase().trim()) !== -1));
+    });
   }
 
   // changeFormEmployee() {

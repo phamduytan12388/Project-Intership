@@ -1,0 +1,86 @@
+<div>
+    <div class="font-text font-text-3">TÌM CHỌN ĐỊA ĐIỂM VÀ LÔ SẼ KHAI THÁC
+        <i class="font-text font-text-4 ml-0">(SEARCH, CHOOSE HARVEST LOCATION AND PLOT)</i>
+    </div>
+    <div class="form">
+        <label nz-checkbox [nzChecked]="checkedAll" (nzCheckedChange)="onAllChecked($event)">Chọn tất cả kết quả
+            <i>(Select all)</i>
+        </label>
+    </div>
+    <div class="form form-red">Vui lòng chọn 1 Loài cây muốn đăng ký khai thác, và chọn vào các lô tương ứng
+        <i>(Please select one specie want to register for harvesting, and select the related plots)</i>
+    </div>
+    <div class="form form-table">
+        <nz-table #editRowTable class="table-content" nzBordered [nzData]="forestPlotList" #rowSelectionTable
+            nzShowPagination nzShowSizeChanger>
+            <!-- (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" -->
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Tỉnh/Thành phố
+                        <br>
+                        <i>(Province/City)</i>
+                    </th>
+                    <th>Quận/Huyện
+                        <br>
+                        <i>(District)</i>
+                    </th>
+                    <th>Phường/Xã
+                        <br>
+                        <i>(Ward/Commune)</i>
+                    </th>
+                    <th>Tiểu khu
+                        <br>
+                        <i>(Compartment)</i>
+                    </th>
+                    <th>Khoảnh
+                        <br>
+                        <i>(Sub-Comp.)</i>
+                    </th>
+                    <th>Lô
+                        <br>
+                        <i>(Plot)</i>
+                    </th>
+                    <th>Loài cây
+                        <br>
+                        <i>(Species)</i>
+                    </th>
+                    <th>D.tích có thể khai thác
+                        <br>
+                        <i>(Capable harvested area)</i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of forestPlotList">
+                    <tr *ngFor="let item1 of item.trees" class="editable-row">
+                        <ng-container *ngIf="!usedId.has(item1.id)">
+                            <td [nzChecked]="setOfCheckedId.has(item1.id)"
+                                (nzCheckedChange)="onItemChecked(item1.id, $event)">
+                            </td>
+                            <td>{{province}}</td>
+                            <td>{{ item.district.value }}</td>
+                            <td>{{ item.commune.value }}</td>
+                            <td>{{ item.compt }}</td>
+                            <td>{{ item.subCompt }}</td>
+                            <td>{{ item.plotCode }}</td>
+                            <td>{{ item1.treeType.name}}</td>
+                            <td>{{ item1.area - item1.detail.standingTreeArea}} ha</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+    <div *nzModalFooter class="row d-flex justify-content-md-center">
+        <button nz-button class="btn btn-primary" [disabled]="setOfCheckedId.size === 0" (click)="clickNextModal()">
+            TIẾP TỤC
+            <i>(NEXT)</i>
+        </button>
+        <button nz-button class="btn btn-primary" (click)="destroyModal()">
+            HỦY
+            <i>(CANCEL)</i>
+        </button>
+
+    </div>
+</div>

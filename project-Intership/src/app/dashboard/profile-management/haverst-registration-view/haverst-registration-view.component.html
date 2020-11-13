@@ -1,0 +1,225 @@
+<div>
+    <div>
+        <div class="font-text font-text-1">QUẢN LÝ HỒ SƠ KHAI BÁO</div>
+        <div class="font-text font-text-2">
+            <i>(Profile management)</i>
+        </div>
+    </div>
+    <form class="form" *ngIf="fgHaverstRegistration" [formGroup]="fgHaverstRegistration">
+        <div class="form-1">
+            <div>
+
+                <div class="font-text font-text-3 ml-0">
+                    <i class="fa fa-arrow-left cursor" aria-hidden="true" (click)="changeScreeenList()"></i>
+                    THÔNG TIN HỒ SƠ ĐĂNG KÝ KHAI THÁC</div>
+                <div class="font-text font-text-4 ml-0">
+                    <i>(Forest harvest registration profile)</i>
+                </div>
+            </div>
+            <!-- <button type="button" class="btn btn-primary" (click)="saveHarvestForest()">Lưu</button> -->
+
+        </div>
+        <hr class="mt-3 mb-4">
+        <div class="font-text font-text-3 font-text-3-2">THÔNG TIN HỒ SƠ
+            <i>(PROFILE INFORMATION)</i>
+        </div>
+        <div class="form form-1">
+            <div>
+                <div class="form1">
+                    <label for="">Ngày chứng từ:
+                        <br>
+                        <i>(Profile date)</i>
+                    </label>
+                    <nz-date-picker class="form-control" [nzDisabledDate]="disabledNowDate" [nzFormat]="'dd/MM/yyyy'"
+                        nzPlaceHolder="dd/MM/yyyy" formControlName="profileDate"></nz-date-picker>
+                </div>
+                <div class="form1">
+                    <label for="">Mã hồ sơ:
+                        <br>
+                        <i>(Profile ID)</i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="profileID">
+                </div>
+                <div class="form1">
+                    <label for="">Tên hồ sơ:
+                        <br>
+                        <i>(Profile name)</i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="profileName">
+                </div>
+            </div>
+            <div>
+                <div class="form1">
+                    <label for="">Người lập hồ sơ:
+                        <br>
+                        <i>(Created by)</i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="createdBy">
+                </div>
+                <div class="form1">
+                    <label for="">Mã số bộ hồ sơ mua bán cây đứng:
+                        <br>
+                        <i>(Standing tree trading profile ID)</i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="standingTreeTraditionId">
+                </div>
+                <div class="form1">
+                    <label for="">Mã số bộ hồ sơ rừng:
+                        <br>
+                        <i>(Forest profile ID)</i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="forestProfileID">
+                </div>
+            </div>
+        </div>
+        <div class="font-text font-text-3 font-text-3-2">THÔNG TIN ĐĂNG KÝ KHAI THÁC
+            <i>(THÔNG TIN ĐĂNG KÝ KHAI THÁC)</i>
+        </div>
+        <div>
+            <div class="form1">
+                <label for="">Đơn vị khai thác là:
+                    <br>
+                    <i>(The forest harvester is:)</i>
+                </label>
+                <nz-radio-group [nzDisabled]="true" formControlName="check">
+                    <label nz-radio nzValue="A">Là chính tôi</label>
+                    <label nz-radio nzValue="B">1 đơn vị khác</label>
+                </nz-radio-group>
+            </div>
+        </div>
+        <div class="form form-1">
+            <div>
+                <div class="form1">
+                    <label for="">Thời gian khai thác từ ngày:
+                        <br>
+                        <i>(Forest harvesting from date)</i>
+                    </label>
+                    <!-- <nz-date-picker formControlName="fromDate" [nzFormat]="'dd/MM/yyyy'"></nz-date-picker> -->
+                    <nz-date-picker [nzDisabledDate]="disabledStartDate" [nzFormat]="'dd/MM/yyyy'"
+                        nzPlaceHolder="dd/MM/yyyy" formControlName="fromDate"></nz-date-picker>
+                </div>
+            </div>
+            <div>
+                <div class="form-1">
+                    <label for="">Đến ngày:
+                        <br>
+                        <i>(Forest harvesting to date)</i>
+                    </label>
+                    <!-- <input type="date" class="form-control" formControlName="identityCardIssuedDate"> -->
+                    <!-- <nz-date-picker formControlName="toDate" [nzFormat]="'dd/MM/yyyy'"></nz-date-picker> -->
+                    <nz-date-picker #endDatePicker [nzDisabledDate]="disabledEndDate" [nzFormat]="'dd/MM/yyyy'"
+                        nzPlaceHolder="dd/MM/yyyy" formControlName="toDate"></nz-date-picker>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="form1">
+                <label for="">Hình thức khai thác:
+                    <br>
+                    <i>(Harvest methods)</i>
+                </label>
+                <nz-radio-group formControlName='harvestMethod'>
+                    <label nz-radio [nzValue]="o.code" *ngFor="let o of harvestMethodList">{{ o.value }}</label>
+                </nz-radio-group>
+            </div>
+        </div>
+        <div>
+            <div class="form1">
+                <label for="">Loại rừng:
+                    <br>
+                    <i>(Forest type)</i>
+                </label>
+                <nz-radio-group formControlName='forestType'>
+                    <label nz-radio [nzValue]="o.code" *ngFor="let o of harvestForestTypeList">{{ o.value }}</label>
+                </nz-radio-group>
+            </div>
+        </div>
+        <div>
+            <label for="">Địa điểm, loài cây và diện tích khai thác:
+                <br>
+                <i>(Harvest location, species and area)</i>
+            </label>
+            <br>
+            <div class="flex-end">
+                <button nz-button nzType="primary" (click)="showModal1()" [disabled]=true>THÊM MỚI LÔ
+                    <br>
+                    <i>(ADD NEW PILOT)</i>
+                </button>
+            </div>
+            <nz-table #editRowTable class="table-content" nzBordered [nzData]="forestPlotList">
+                <thead>
+                    <tr>
+                        <th>Tỉnh/Thành phố
+                            <br>
+                            <i>(Province/City)</i>
+                        </th>
+                        <th>Quận/Huyện
+                            <br>
+                            <i>(District)</i>
+                        </th>
+                        <th>Phường/Xã
+                            <br>
+                            <i>(Ward/Commune)</i>
+                        </th>
+                        <th>Tiểu khu
+                            <br>
+                            <i>(Compartment)</i>
+                        </th>
+                        <th>Khoảnh
+                            <br>
+                            <i>(Sub-Comp.)</i>
+                        </th>
+                        <th>Lô
+                            <br>
+                            <i>(Plot)</i>
+                        </th>
+                        <th>D.tích khai thác
+                            <br>
+                            <i>(Harvest area)</i>
+                        </th>
+                        <th>D.tích còn lại
+                            <br>
+                            <i>(Remained area)</i>
+                        </th>
+                        <th>Loài cây
+                            <br>
+                            <i>(Species)</i>
+                        </th>
+                        <th>Năm trồng
+                            <br>
+                            <i>(Plant year)</i>
+                        </th>
+                        <th>Khối lượng dự kiến
+                            <br>
+                            <i>(Estimated Harvested Volume)</i>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let item of forestPlotList">
+                        <tr *ngFor="let item1 of item.trees" class="editable-row">
+                            <ng-container *ngIf="setOfCheckedId.has(item1.id)">
+                                <td>{{province}}</td>
+                                <td>{{ item.district.value }}</td>
+                                <td>{{ item.commune.value }}</td>
+                                <td>{{ item.compt }}</td>
+                                <td>{{ item.subCompt }}</td>
+                                <td>{{ item.plotCode }}</td>
+                                <td></td>
+                                <td>{{ item1.area - item1.detail.standingTreeArea}} ha</td>
+                                <td>{{ item1.treeType.name}}</td>
+                                <td>{{ item1.createdDate * 1000| date: 'yyyy'}}</td>
+                                <td></td>
+                                <td>
+                                    <i class="fa fa-minus-circle cursor" aria-hidden="true"
+                                        (click)="deleteItem(item1.id)"></i>
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </nz-table>
+        </div>
+    </form>
+</div>

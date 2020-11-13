@@ -6,18 +6,18 @@ import { SharedModule } from '../shared/shared.module';
 import { EmployeeModule } from '../employee/employee.module';
 import { InfoUserModule } from './info-user/info-user.module';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { HideButtonDirective } from '../shared/directives/hide-button.directive';
+import { ProfileManagementModule } from './profile-management/profile-management.module';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    HideButtonDirective
+    DashboardComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
     InfoUserModule,
+    ProfileManagementModule,
     NzMenuModule,
   ]
 })

@@ -8,6 +8,7 @@ import { AddressMasterdata } from 'src/app/shared/model/address-masterdata';
 import { stringify } from 'querystring';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { empty } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,10 +32,10 @@ export class FormUserHawaComponent implements OnInit {
   public address = '';
   constructor(
     private dataService: DataService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   get getAddress(): string {
-    console.log(this.fgUserHawa.getRawValue().fullName + this.fgUserHawa.getRawValue().coCode);
     this.address = '';
     if (this.fgUserHawa.getRawValue().street) {
       this.address += this.fgUserHawa.getRawValue().street;
@@ -55,13 +56,34 @@ export class FormUserHawaComponent implements OnInit {
     return this.address;
   }
 
+  setAddress(address: any, change: boolean): void {
+    // if (change) {
+    //   this.dataService.address = address;
+    // }
+
+    this.allProvinceList = address.reduce((accumulator, currentValue) => {
+      return accumulator.concat(currentValue.childs);
+    }, []);
+    this.allDistrictceList = this.allProvinceList.reduce((accumulator, currentValue) => {
+      return accumulator.concat(currentValue.childs);
+    }, []);
+    this.allWardList = this.allDistrictceList.reduce((accumulator, currentValue) => {
+      return accumulator.concat(currentValue.childs);
+    }, []);
+    this.districtceList = this.allProvinceList.find(m => m.code === this.userDetailHawa.province.code).childs;
+    this.wardList = this.districtceList.filter(m => m.code === this.userDetailHawa.district.code)
+      .reduce((accumulator, currentValue) => {
+        return accumulator.concat(currentValue.childs);
+      }, []);
+  }
+
   ngOnInit(): void {
-    this.userLoginHawa = JSON.parse(localStorage.getItem('userLoginHawa'));
     forkJoin(
-      this.dataService.getAddressMasterDataHawa(this.userLoginHawa.jwtToken),
-      this.dataService.getUserLoginHawa(this.userLoginHawa.jwtToken),
-      this.dataService.getMasterdataHawa(this.userLoginHawa.jwtToken)
+      this.dataService.getAddressMasterDataHawa(),
+      this.dataService.getUserLoginHawa(),
+      this.dataService.getMasterdataHawa()
     ).subscribe(([res1, res2, res3]) => {
+
       this.allProvinceList = res1.reduce((accumulator, currentValue) => {
         return accumulator.concat(currentValue.childs);
       }, []);
@@ -72,49 +94,19 @@ export class FormUserHawaComponent implements OnInit {
         return accumulator.concat(currentValue.childs);
       }, []);
       this.userDetailHawa = res2;
+
+      this.districtceList = this.allProvinceList.find(m => m.code === this.userDetailHawa.province.code).childs;
+      this.wardList = this.districtceList.filter(m => m.code === this.userDetailHawa.district.code)
+        .reduce((accumulator, currentValue) => {
+          return accumulator.concat(currentValue.childs);
+        }, []);
       this.createForm();
       res3.forEach(e => {
         e.childs.forEach(p => this.forestOwnerTypeList.push(p));
       });
-      this.districtceList = this.allProvinceList.find(m => m.code === this.userDetailHawa.province.code).childs;
-      this.wardList = this.districtceList.filter(m => m.code === this.userDetailHawa.district.code).reduce((accumulator, currentValue) => {
-        return accumulator.concat(currentValue.childs);
-      }, []);
+
 
     });
-
-
-    // this.userLoginHawa = JSON.parse(localStorage.getItem('userLoginHawa'));
-    // this.dataService.getAddressMasterDataHawa(this.userLoginHawa.jwtToken).subscribe(e => {
-    //   this.allProvinceList = e.reduce((accumulator, currentValue) => {
-    //     return accumulator.concat(currentValue.childs);
-    //   }, []);
-    //   this.allDistrictceList = this.allProvinceList.reduce((accumulator, currentValue) => {
-    //     return accumulator.concat(currentValue.childs);
-    //   }, []);
-    //   this.allWardList = this.allDistrictceList.reduce((accumulator, currentValue) => {
-    //     return accumulator.concat(currentValue.childs);
-    //   }, []);
-    // });
-
-    // this.dataService.getUserLoginHawa(this.userLoginHawa.jwtToken).subscribe(el => {
-    //   this.userDetailHawa = el;
-    //   this.createForm();
-    //   this.dataService.getMasterdataHawa(this.userLoginHawa.jwtToken).subscribe(o => {
-    //     o.forEach(e => {
-    //       e.childs.forEach(p => this.forestOwnerTypeList.push(p));
-    //     });
-
-    //     // this.forestOwnerTypeList = o.reduce((accumulator, currentValue) => {return accumulator.concat(currentValue.childs)}, [])
-    //   });
-    //   this.districtceList = this.allProvinceList.find(m => m.code === this.userDetailHawa.province.code).childs;
-    // this.wardList = this.districtceList.filter(m => m.code === this.userDetailHawa.district.code).reduce((accumulator, currentValue) => {
-    //   return accumulator.concat(currentValue.childs);
-    // }, []);
-
-    //   // this.supplyChainList.map(o => this.supplyChainChildList.push(o.childs));
-    // })
-
   }
 
   ChangeProvinceList(code: string): void {
@@ -164,5 +156,4 @@ export class FormUserHawaComponent implements OnInit {
       street: this.userDetailHawa.street,
     });
   }
-
 }

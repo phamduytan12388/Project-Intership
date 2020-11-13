@@ -36,7 +36,6 @@ registerLocaleData(en);
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    LoginModule,
     HttpClientModule,
     IconsProviderModule,
     NzLayoutModule,
