@@ -102,6 +102,7 @@ export class HaverstRegistrationComponent implements OnInit {
         usedId: this.setOfCheckedId,
         forestList: this.forestList
       },
+      nzWidth: '70rem'
     });
 
     modal.afterClose.subscribe(result => {

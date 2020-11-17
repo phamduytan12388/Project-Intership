@@ -5,9 +5,13 @@ import { ChooseHarvestComponent } from './choose-harvest/choose-harvest.componen
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ShowImageComponent } from './show-image/show-image.component';
 
 @NgModule({
-  declarations: [HeaderComponent, ChooseHarvestComponent],
+  declarations: [
+    HeaderComponent,
+    ChooseHarvestComponent,
+    ShowImageComponent],
   imports: [
     CommonModule,
     NzCheckboxModule,
@@ -16,7 +20,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
   ],
   exports: [
     HeaderComponent,
-    ChooseHarvestComponent
+    ChooseHarvestComponent,
+    ShowImageComponent
   ]
 })
 export class ComponentsModule { }

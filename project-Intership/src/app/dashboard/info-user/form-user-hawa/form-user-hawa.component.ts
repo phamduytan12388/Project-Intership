@@ -9,6 +9,10 @@ import { stringify } from 'querystring';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { empty } from 'rxjs';
 import { Router } from '@angular/router';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ShowImageComponent } from 'src/app/shared/components/show-image/show-image.component';
+
 
 
 @Component({
@@ -30,10 +34,21 @@ export class FormUserHawaComponent implements OnInit {
   public wardList: AddressMasterdata[] = [];
   public exam: AddressMasterdata;
   public address = '';
+  previewImage: string | undefined = '';
+  previewVisible = false;
+  isShowPreview: boolean;
+  idImage: string;
+  public fileToUpload: File = null;
+  fileList: NzUploadFile[] = [];
+  public imageId: string[] = [];
+  public src;
+  public url = 'http://hawadevapi.bys.vn/api/file/';
+
   constructor(
     private dataService: DataService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private modalService: NzModalService) { }
 
   get getAddress(): string {
     this.address = '';
@@ -78,6 +93,7 @@ export class FormUserHawaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isShowPreview = false;
     forkJoin(
       this.dataService.getAddressMasterDataHawa(),
       this.dataService.getUserLoginHawa(),
@@ -100,6 +116,7 @@ export class FormUserHawaComponent implements OnInit {
         .reduce((accumulator, currentValue) => {
           return accumulator.concat(currentValue.childs);
         }, []);
+      this.updateImage();
       this.createForm();
       res3.forEach(e => {
         e.childs.forEach(p => this.forestOwnerTypeList.push(p));
@@ -156,4 +173,80 @@ export class FormUserHawaComponent implements OnInit {
       street: this.userDetailHawa.street,
     });
   }
+
+  getBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  handlePreview = async (file: NzUploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await this.getBase64(file.originFileObj);
+    }
+    this.previewImage = file.url || file.preview;
+    this.previewVisible = true;
+  }
+
+  beforeUploadImage(file: File, fileList: NzUploadFile[]): boolean {
+    this.uploadFileToActivity(file);
+    // this.dataService.postImage(file)
+    //   .subscribe(o => {
+    //     this.userDetailHawa.images.push(o.id);
+    //   });
+    return true;
+  }
+
+  // handleFileInput(events): void {
+  //   // this.fileToUpload = files.item(0);
+  //   this.uploadFileToActivity(events.file.originFileObj);
+  // }
+
+  handleFileInput(event): void {
+    const files = event.target.files;
+    // this.fileToUpload = files.item(0);
+    this.uploadFileToActivity(files.item(0));
+    event.target.value = null;
+  }
+
+  uploadFileToActivity(file: File): void {
+    this.dataService.postImage(file).subscribe(data => {
+      this.userDetailHawa.images.push(data.id);
+      this.imageId.push(data.id);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  updateImage(): void {
+    this.userDetailHawa.images.forEach(o => {
+      this.imageId.push(o);
+    });
+  }
+
+  saveUserDetail(): void {
+    this.dataService.updateUserDetail(this.userDetailHawa).subscribe(o => {
+      console.log(o);
+    });
+  }
+
+  deleteImage(id: string): void {
+    const index: number = this.imageId.indexOf(id);
+    if (index !== -1) {
+      this.imageId.splice(index, 1);
+      this.userDetailHawa.images.splice(index, 1);
+    }
+  }
+
+  showModalImage(itemId: string): void {
+    this.isShowPreview = true;
+    this.idImage = itemId;
+  }
+  closeImage(): void {
+    this.isShowPreview = false;
+  }
 }
+

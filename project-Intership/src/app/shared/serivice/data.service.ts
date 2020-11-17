@@ -13,6 +13,7 @@ import { HarvestForestFilterParam } from '../model/harvest-forest-filter';
 import { ToolbarSearch } from '../model/other';
 import { Role } from '../model/role';
 import { AddressMasterdata } from '../model/address-masterdata';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,26 @@ export class DataService extends BaseService {
   postUserHawa(userLogin: UserLogin): Observable<UserLoginHawa> {
     return this.post<UserLoginHawa>('api/login', userLogin).pipe(map(res => res.data));
   }
+
+  postImage(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.post('api/file', formData).pipe(map(res => res.data));
+  }
+
+  updateUserDetail(userDetail: UserDetailHawa): Observable<any> {
+    return this.put('api/user/updatedetail', userDetail, this.headers);
+  }
+
+  // postFile(fileToUpload: File): Observable<boolean> {
+  //   const endpoint = 'your-destination-url';
+  //   const formData: FormData = new FormData();
+  //   formData.append('fileKey', fileToUpload, fileToUpload.name);
+  //   return this.httpClient
+  //     .post(endpoint, formData, { headers: yourHeadersConfig })
+  //     .map(() => { return true; })
+  //     .catch((e) => this.handleError(e));
+  // }
 
   CreateHarvestForest(harvestForest: HarvestForest): Observable<any> {
     return this.post<any>('api/declare-harvest/create', harvestForest, this.headers).pipe(map(res => res.data));

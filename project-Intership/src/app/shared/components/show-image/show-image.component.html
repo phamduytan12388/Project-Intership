@@ -1,0 +1,39 @@
+<div>
+    <ng-container *ngIf="imageId">
+        <div class="image-content-area">
+            <div class="modal-container">
+                <div class="image-display">
+                    <div class="close-button">
+                        <i class="fa fa-times-circle-o cursor-pointer" aria-hidden="true"
+                            (click)="closeComponent()"></i>
+                    </div>
+                    <div class="main-show-image">
+                        <img class="show-image-item" [src]="url + id" alt="Ảnh" />
+                    </div>
+                    <div class="footer">
+                        <i class="fa fa-chevron-left fa-chevron" aria-hidden="true" (click)="clickButtonLeft()"></i>
+                        <div class="row">
+                            <ng-container *ngIf="imageId">
+                                <ng-container *ngFor="let item of imageId">
+                                    <div class="display-img">
+                                        <img class="mini-img" [src]="url + item" alt="Ảnh" [class.shining]="item === id"
+                                            (click)="clickMiniImage(item)" />
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                        <i class="fa fa-chevron-right fa-chevron" aria-hidden="true" (click)="clickButtonRight()"></i>
+                    </div>
+                    <div class="page-number">
+                        Hình {{page}}/{{imageId.length}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <ng-container *ngFor="let item of imageId">
+            <img [src]="url + item" alt="Ảnh" />
+        </ng-container> -->
+    </ng-container>
+</div>

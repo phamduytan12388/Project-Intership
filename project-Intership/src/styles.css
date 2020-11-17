@@ -1,9 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
-.ant-modal {
+/* .ant-modal {
     width: 70rem !important;
-    /* display: flex;
-    min-height: 80%;
-    justify-content: center;
-    align-items: center; */
-  }
+  } */

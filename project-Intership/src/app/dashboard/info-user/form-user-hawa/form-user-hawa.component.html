@@ -3,6 +3,7 @@
     <div class="font-text font-text-2">
         <i>(View individual/household infomation)</i>
     </div>
+
     <form class="form" *ngIf="fgUserHawa" [formGroup]="fgUserHawa">
         <div>
             <br>
@@ -23,7 +24,7 @@
                 </label>
                 <!-- <input type="text" class="form-control" formControlName="supplyChainTypes"> -->
                 <select class="form-control" formControlName="forestOwnerType">
-                    <option *ngFor="let item of forestOwnerTypeList" [value]="item.code" >{{item.displayText}}</option>
+                    <option *ngFor="let item of forestOwnerTypeList" [value]="item.code">{{item.displayText}}</option>
                 </select>
             </div>
             <br>
@@ -59,9 +60,30 @@
                 <!-- <input type="date" class="form-control" formControlName="identityCardIssuedDate"> -->
                 <nz-date-picker formControlName="identityCardIssuedDate" [nzFormat]="'dd/MM/yyyy'"></nz-date-picker>
             </div>
+            <div class="upload-image">
+                <input #uploadFile class="display-none" accept=".jpg, .jpeg, .png, .gif" type="file" id="file"
+                    (change)="handleFileInput($event)">
+                <ng-container *ngIf="imageId">
+                    <ng-container *ngFor="let item of imageId">
+                        <div class="display-img">
+                            <img [src]="url + item" alt="Ảnh" (click)="showModalImage(item)" />
+                            <div class="icon-delete-image">
+                                <i class="fa fa-times" aria-hidden="true" (click)="deleteImage(item)"></i>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <div class="perspective-image" [class.d-none]="imageId.length > 2" (click)=" uploadFile.click()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+                <!-- <img [src]="src" alt="Ảnh" class="display-img" (click)="uploadFile.click()" /> -->
+            </div>
         </div>
 
         <div>
+            <div class="row d-flex">
+                <button nz-button class="ml-auto" nzType="primary" (click)="saveUserDetail()">Lưu</button>
+            </div>
             <br>
             <br>
             <br>
@@ -77,8 +99,9 @@
                     <i>(Province/City)</i>
                 </label>
                 <!-- <input type="text" class="form-control" formControlName="province"> -->
-                <select class="form-control" (change)="ChangeProvinceList($event.target.value)"  formControlName="province">
-                    <option *ngFor="let item of allProvinceList" [value]="item.code" >{{item.name}}</option>
+                <select class="form-control" (change)="ChangeProvinceList($event.target.value)"
+                    formControlName="province">
+                    <option *ngFor="let item of allProvinceList" [value]="item.code">{{item.name}}</option>
                 </select>
             </div>
             <br>
@@ -88,8 +111,9 @@
                     <i>(District)</i>
                 </label>
                 <!-- <input type="text" class="form-control" formControlName="district"> -->
-                <select class="form-control" (change)="ChangeDistrictList($event.target.value)" formControlName="district">
-                    <option *ngFor="let item of districtceList" [value]="item.code" >{{item.name}}</option>
+                <select class="form-control" (change)="ChangeDistrictList($event.target.value)"
+                    formControlName="district">
+                    <option *ngFor="let item of districtceList" [value]="item.code">{{item.name}}</option>
                 </select>
             </div>
             <br>
@@ -100,7 +124,7 @@
                 </label>
                 <!-- <input type="text" class="form-control" formControlName="commune"> -->
                 <select class="form-control" formControlName="commune">
-                    <option *ngFor="let item of wardList" [value]="item.code" >{{item.name}}</option>
+                    <option *ngFor="let item of wardList" [value]="item.code">{{item.name}}</option>
                 </select>
             </div>
             <br>
@@ -130,3 +154,4 @@
         </div>
     </form>
 </div>
+<app-show-image *ngIf="isShowPreview" [imageId]='imageId' [id]='idImage' (closed)='closeImage()'></app-show-image>
