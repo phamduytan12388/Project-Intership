@@ -1,0 +1,151 @@
+<div [formGroup]="factorGroup" class="mt-3 form-content-area">
+  <div class="row">
+    <div class="col-2 d-flex factor-select">
+      <i class="fa fa-trash-o mt-2 pt-1 pr-2 delete pointer" (click)="deleteFactorGroupClick(i)" *ngIf="!factorGroup.get('id').value"></i>
+      <span class="font-weight-bold mr-2 mt-2">{{i+1}}.</span>
+      <div class="w-100">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="- Chọn yếu tố -" formControlName="managementFactor"
+          [class.is-invalid]="factorGroup.get('managementFactor')?.CustomErr" [compareWith]="compareDataNZSelectData">
+          <nz-option *ngFor="let item of factorData" [nzLabel]="item.name" [nzValue]="item">
+          </nz-option>
+        </nz-select>
+        <div class="invalid-feedback" *ngIf="factorGroup.get('managementFactor')?.CustomErr">
+          {{ factorGroup.get('managementFactor')?.CustomErr }}
+        </div>
+        <div *ngIf="factorGroup.get('id')?.value">
+          <span class="hasWork"
+            *ngIf="factorGroup.get('status')?.value && (factorGroup.get('status')?.value.code === 'HasWork' || factorGroup.get('status')?.value.code === 'RecoredWork')">Đã
+            sinh kế hoạch chi tiết</span>
+          <span class="stopWork"
+            *ngIf="factorGroup.get('status')?.value && factorGroup.get('status')?.value.code === 'StopWork'">Đã
+            ngưng ghi nhận</span>
+          <span class="new"
+            *ngIf="factorGroup.get('status')?.value && factorGroup.get('status')?.value.code === 'New'">Chưa
+            sinh kế hoạch chi tiết</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-10 factor-time">
+      <div class="row">
+        <div class="d-flex flex-wrap mr-3 col-4 col-tablet row pr-0">
+          <div class="col-5 pr-0">
+            <label class="label-form required" for="curator">
+              Người phụ trách:
+            </label>
+          </div>
+          <div class="col-7">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="- Chọn -"
+              [class.is-invalid]="factorGroup.get('curator')?.CustomErr" id="curator" formControlName="curator"
+              [compareWith]="compareDataNZSelectUser">
+              <nz-option *ngFor="let item of userData" [nzLabel]="item.fullName" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+            <div class="invalid-feedback" *ngIf="factorGroup.get('curator')?.CustomErr">
+              {{ factorGroup.get('curator')?.CustomErr }}
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap col-4 col-tablet row pr-0">
+          <div class="col-5 pr-0">
+            <label class="label-form required" for="frequency">
+              Tần suất:
+            </label>
+          </div>
+          <div class="col-7">
+            <nz-select nzShowSearch nzPlaceHolder="- Chọn -"
+              [class.is-invalid]="factorGroup.get('frequency')?.CustomErr" id="frequency" formControlName="frequency"
+              (ngModelChange)="changeFrequencyClick(factorGroup)" [compareWith]="compareDataNZSelect">
+              <nz-option *ngFor="let item of frequencyData" [nzLabel]="item.value" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+            <div class="invalid-feedback" *ngIf="factorGroup.get('frequency')?.CustomErr">
+              {{ factorGroup.get('frequency')?.CustomErr }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4 text-right">
+          <ng-container *ngIf="!factorGroup.get('id').value">
+            <button nz-button nzType="primary" class="mx-1 text-uppercase"
+              (click)="saveManagementFactorClick(factorGroup, false)">
+              Lưu
+            </button>
+            <button nz-button nzType="primary" class="mx-1 text-uppercase"
+              (click)="saveManagementFactorClick(factorGroup, true)">
+              Lưu và sinh KHCT
+            </button>
+          </ng-container>
+          <ng-container *ngIf="factorGroup.get('id').value">
+            <ng-container
+              *ngIf="factorGroup.get('status').value && factorGroup.get('status').value.code === 'New'">
+              <button nz-button nzType="default" class="mx-1 text-uppercase"
+                (click)="stopManagementFactorClick(factorGroup)">
+                Hủy
+              </button>
+              <button nz-button nzType="primary" class="mx-1 text-uppercase"
+                (click)="saveManagementFactorClick(factorGroup, true)">
+                Sinh KHCT
+              </button>
+            </ng-container>
+            <button
+              *ngIf="factorGroup.get('status').value && (factorGroup.get('status').value.code === 'HasWork' || factorGroup.get('status')?.value.code === 'RecoredWork')"
+              nz-button nzType="primary" class="mx-1 text-uppercase"
+              (click)="stopManagementFactorClick(factorGroup)">
+              Ngưng ghi nhận
+            </button>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="d-flex flex-wrap mr-3 col-4 col-tablet row pr-0">
+          <div class="col-5 pr-0">
+            <label class="label-form required">
+              {{factorGroup.get('frequency').value && factorGroup.get('frequency').value.code === 'Daily' ? 'Từ ngày - Đến ngày' : 'Thời gian thực hiện'}}:
+            </label>
+          </div>
+          <div class="col-7 row pr-0">
+            <div class="col-6 pr-0"
+              [class.col-12]="!factorGroup.get('frequency').value || factorGroup.get('frequency').value.code !== 'Daily'">
+              <nz-date-picker formControlName="fromDate" [nzDisabled]="!factorGroup.get('frequency').value"
+                [class.is-invalid]="factorGroup.get('fromDate')?.CustomErr" [nzFormat]="dateFormat"
+                nzPlaceHolder="- Chọn -" [nzDisabledDate]="disabledFromDate"
+                (ngModelChange)="fromDateChange(factorToDate)" #factorFromDate>
+              </nz-date-picker>
+              <div class="invalid-feedback" *ngIf="factorGroup.get('fromDate')?.CustomErr">
+                {{ factorGroup.get('fromDate')?.CustomErr }}
+              </div>
+            </div>
+            <div class="col-6 pr-0"
+              *ngIf="factorGroup.get('frequency').value && factorGroup.get('frequency').value.code === 'Daily'">
+              <nz-date-picker formControlName="toDate" [class.is-invalid]="factorGroup.get('toDate')?.CustomErr"
+                [nzFormat]="dateFormat" nzPlaceHolder="- Chọn -" [nzDisabledDate]="disabledToDate"
+                (ngModelChange)="toDateChange(factorFromDate)" #factorToDate>
+              </nz-date-picker>
+              <div class="invalid-feedback" *ngIf="factorGroup.get('toDate')?.CustomErr">
+                {{ factorGroup.get('toDate')?.CustomErr }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap mr-3 col-4 col-tablet row pr-0">
+          <div class="col-5 pr-0">
+            <label class="label-form required" for="frequency">
+              Vào lúc
+            </label>
+          </div>
+          <div class="col-7">
+            <div [class.time-disabled]="factorGroup.get('id').value">
+              <div class="not-allowed position-absolute"></div>
+              <nz-time-picker formControlName="executionTime"
+              [class.is-invalid]="factorGroup.get('executionTime')?.CustomErr" [nzDefaultOpenValue]="defaultOpenValue" [nzAllowEmpty]="false">
+              </nz-time-picker>
+            </div>
+            <div class="invalid-feedback" *ngIf="factorGroup.get('executionTime')?.CustomErr">
+              {{ factorGroup.get('executionTime')?.CustomErr }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

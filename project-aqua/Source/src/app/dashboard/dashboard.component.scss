@@ -1,0 +1,139 @@
+.header {
+  .title-header {
+    padding: 0 50px;
+    .logo {
+      width: 120px;
+      height: 31px;
+      background: #3597b6;
+      margin: 10px 24px 5px 0;
+      float: left;
+    }
+  }
+  .top-logo {
+    max-height: 38px;
+  }
+  .menu {
+    padding: 0 50px;
+    background-color: white;
+    min-width: 100%;
+    overflow-x: auto;
+  }
+  .bell {
+    font-size: 20px;
+    color: white;
+  }
+}
+
+.notify-list {
+  width: 500px;
+  background-color: white;
+  .dropdown-menu-header {
+    background-color: #318ba7;
+    color: white;
+  }
+  .force-scroll {
+    overflow-y: auto;
+    max-height: 50vh;
+    .notification-item {
+      border-bottom: 2px solid #f5f7f8;
+      .span--margin {
+        margin: 0rem 0.3rem 0rem 0rem;
+      }
+      .content--bold {
+        font-weight: 600;
+      }
+      .notification--not-read {
+        background-color: #edf2fa;
+      }
+      &:hover {
+        .dropdown-item-notify,
+        .type-notify {
+          background-color: #f8f9fa;
+        }
+      }
+      .dropdown-item-notify {
+        padding: 0.25rem 0.5rem 0.25rem 0.25rem !important;
+      }
+      .type-notify {
+        padding-left: 0.75rem;
+        padding-right: 0.5rem;
+        .type-notify-icon {
+          font-size: 20px;
+          color: #3597b6;
+        }
+      }
+      .last {
+        white-space: initial;
+      }
+    }
+    .item-new {
+      background-color: #f6fcff;
+    }
+  }
+}
+
+[nz-menu] {
+  line-height: 38px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  padding: 0 50px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: calc(100vh - 205px);
+}
+
+nz-header {
+  background-color: #fff;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 2px 12px 0 #dfe3eb;
+  z-index: 1;
+  .admin-avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  .title {
+    color: white;
+  }
+}
+
+:host ::ng-deep {
+  nz-header .anticon {
+    vertical-align: 0.1em;
+  }
+  .ant-badge-count {
+    // padding: 0 5px;
+    height: 16px;
+    line-height: 16px;
+    box-shadow: none;
+    padding: 0 5px;
+  }
+}
+
+.ant-layout-header {
+  height: 85px;
+  background: #0a5f7a;
+  padding: 0;
+  .ant-menu-horizontal > .ant-menu-submenu {
+    // background-color: white;
+    // color: black;
+  }
+  .ant-menu-horizontal > .ant-menu-submenu-selected {
+    color: #66c9d6;
+  }
+}

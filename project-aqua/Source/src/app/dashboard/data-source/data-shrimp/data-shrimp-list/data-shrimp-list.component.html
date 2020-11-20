@@ -1,0 +1,77 @@
+<div class="inner-content w-100 p-2">
+  <div class="row mx-0 align-items">
+    <div class="d-flex align-items-center">
+      <h6 class="text-uppercase font-weight-bold primary-color mb-0">danh sách giống tôm</h6>
+    </div>
+    <div class="mx-0 ml-auto d-flex">
+      <div class="search-area mx-1" nz-tooltip [nzTooltipTitle]="'Tìm theo mã, tên giống tôm, mô tả'">
+        <nz-input-group class="search" nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"
+            [placeholder]="'Tìm theo mã, tên giống tôm, mô tả'" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="h-100 w-100 table-content pt-3">
+    <nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="shrimpData" [nzLoading]="false"
+      [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)"
+      [nzScroll]="{ x: '1150px' }">
+      <thead>
+        <tr>
+          <th class="table-col-stt text-center" nzLeft="0px">
+            <div class="d-flex justify-content-center">
+              <P class="mb-0">STT</P>
+            </div>
+          </th>
+          <th class="table-col-code">
+            <P class="mb-0">Mã giống tôm</P>
+          </th>
+          <th class="table-col-name">
+            <P class="mb-0">Tên giống tôm</P>
+          </th>
+          <th  class="table-col-description">
+            <P class="mb-0 text-nowrap">Mô tả</P>
+          </th>
+          <th  class="table-col-doc">
+            <P class="mb-0 text-nowrap">Tài liệu đính kèm</P>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of basicTable.data; let i = index">
+          <td nzLeft="0px" class="text-center">
+            <span [title]="renderIndex(i)">
+              {{ renderIndex(i) }}
+            </span>
+          </td>
+          <td>
+            <span [title]="item?.code">
+              {{item?.code}}
+            </span>
+          </td>
+          <td>
+            <span [title]="item?.name">
+              {{item?.name}}
+            </span>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between align-items-center">
+              <span [title]="item?.description">
+                {{item?.description | truncateWord: 8}}
+              </span>
+              <i class="fa fa-info-circle pointer desc-icon ml-2" *ngIf="item?.description" aria-hidden="true" (click)="showInfo(item)"></i>
+            </div>
+          </td>
+          <td >
+           <a class="hyperlink text-underline text-break" [href]="item?.attachment" target="_blank"  [title]="item?.attachment">
+            {{item?.attachment | truncateText:55}}
+           </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

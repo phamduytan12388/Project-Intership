@@ -1,0 +1,80 @@
+<div class="inner-content w-100 p-2">
+  <div class="row mx-0 align-items">
+    <div class="d-flex align-items-center">
+      <h6 class="text-uppercase font-weight-bold primary-color mb-0">danh sách nhóm người dùng</h6>
+    </div>
+    <div class="mx-0 ml-auto d-flex">
+      <div class="search-area mx-1" nz-tooltip [nzTooltipTitle]="'Tìm theo tên, mô tả'">
+        <nz-input-group class="search" nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"
+            [placeholder]="'Tìm theo tên, mô tả'" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </div>
+      <button nz-button nzType="primary" class="mx-1" (click)="createOrEdit(null, eTypeForm.create)">Tạo mới</button>
+      <!-- <button nz-button nzType="primary" class="mx-1" (click)="delete()">Xóa</button> -->
+      <button nz-button nzType="primary" class="ml-1" (click)="filter()">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="h-100 w-100 table-content pt-3">
+    <nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="userGroupData" [nzLoading]="false"
+      [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)"
+      [nzScroll]="{ x: '1150px' }">
+      <thead>
+        <tr>
+          <th  nzLeft="0px" class="text-center table-col-stt">  
+              <div class="d-flex justify-content-center">
+                <label  nz-checkbox [(ngModel)]="isCheckboxAll" (change)="choosedAll()"></label>
+              </div>
+          </th>
+          <th class="table-col-name">
+            <P class="mb-0">Tên</P>
+          </th>
+          <th  class="table-col-description">
+            <P class="mb-0 text-nowrap">Mô tả</P>
+          </th>
+          <th  class="table-col-date">
+            <P class="mb-0 text-nowrap">Ngày tạo</P>
+          </th>
+          <th class="text-center" class="table-col-status">
+            <P class="mb-0 text-nowrap">Trạng thái</P>
+          </th>
+          <th  nzRight="0px" class="text-center table-col-action">
+            <P class="mb-0 text-nowrap">Thao tác</P>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of basicTable.data; let i = index">
+          <td nzLeft="0px" class="text-center">
+            <div class="d-flex justify-content-center">
+              <label nz-checkbox *ngIf="!item?.isDefault" [(ngModel)]="item.isChecked" (change)="changeCheckItem()"></label>
+            </div>
+          </td>
+          <td><span class="hyperlink" (click)="createOrEdit(item, eTypeForm.edit)">{{item?.name}}</span>
+          </td>
+          <td>{{item?.description}}</td>
+          <td>{{item?.createdAt ? (item?.createdAt * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
+          <td class="d-flex justify-content-start">
+            {{item?.countUsers > 0 ? ('Có ' + item?.countUsers + ' người dùng') : 'Chưa có người dùng'}}
+          </td>
+          <td nzRight="0px">
+            <div class="d-flex justify-content-center align-items-center">
+             <ng-container *ngIf="!item?.isDefault">
+              <i class="fa fa-pencil fa-icon-edit pointer mr-3 outline-none" aria-hidden="true" nz-tooltip
+              (click)="createOrEdit(item, eTypeForm.edit)" nzTooltipTitle="Sửa">
+              </i>
+              <i class="fa fa-trash fa-icon-delete pointer" aria-hidden="true" nz-tooltip
+                nzTooltipTitle="Xóa" (click)="delete(item)"></i>
+             </ng-container>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

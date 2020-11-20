@@ -1,0 +1,14 @@
+<div class="popup-container">
+  <div class="content container p-0 h-50">
+    <div nz-title class="text-uppercase text-center popup-title" *ngIf="title">
+      {{ title }}
+    </div>
+    <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+      <div class="nz-col" nzSpan="12">
+        <div class="popup-message text-center">
+          <p class="text-center" *ngIf="vnContent" [innerHTML]="vnContent | safe: 'html'"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.table-content {
+  .table-col {
+    &-stt {
+      width: 3rem;
+    }
+    &-doc {
+      width: 26rem;
+    }
+    &-name {
+      width: 20rem;
+    }
+    &-description {
+      width: 33rem;
+    }
+    &-code {
+      width: 13rem;
+    }
+  }
+}
+.search-area {
+  min-width: 18rem;
+}

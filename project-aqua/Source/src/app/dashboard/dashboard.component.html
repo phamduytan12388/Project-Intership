@@ -1,0 +1,140 @@
+<nz-layout>
+    <nz-header class="header">
+        <div class="d-flex justify-content-between title-header">
+            <div class="d-flex py-1">
+                <img width="120px" src="assets/images/logo.png" alt="" class="top-logo pointer outline-none" [routerLink]="['/dashboard']">
+                <div class="text-uppercase d-flex align-items-center pl-3">
+                    <h5 class="mb-0 font-weight-bold title">hệ thống quản lý nuôi tôm</h5>
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <nz-badge [nzCount]="countNotify" [nzOverflowCount]="99" class="mr-4" nz-popover
+                    nzPopoverTrigger="click" [(nzVisible)]="isVisibleNotify" [nzPopoverContent]="notiTemplate"
+                    nzPopoverPlacement="bottomRight">
+                        <i nz-icon (click)="readNotification()" nzType="bell" class="bell pointer" title="Thông báo" nzTheme="outline"
+                        ></i>
+                </nz-badge>
+                <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="d-flex align-items-center">
+                    <img imgExif [src]="
+                        user && user.avatar ? user.avatar : 'assets/images/avatar2.png'
+                      " alt="" class="admin-avatar rounded-circle" />
+                    <h4 nz-title class="my-0 mx-3 pointer outline-none title" [title]="user ? user.fullName : null">
+                        {{ user ? user.fullName : 'Người dùng' }}
+                    </h4>
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu class="mt-2 bg-light menu-avatar">
+                        <li nz-menu-item (click)="changePassword()">Thay đổi mật khẩu </li>
+                        <li nz-menu-item (click)="logout()">Đăng xuất </li>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>
+        </div>
+
+        <ul nz-menu nzMode="horizontal" class="menu">
+            <li nz-menu-item nzSelected [routerLink]="['/dashboard/record-active/note-book']"
+                routerLinkActive="router-link-active" [nzMatchRouter]="true" class="outline-none">
+                <i nz-icon nzType="edit"></i>
+                Hoạt động ghi nhận
+            </li>
+            <li nz-menu-item [routerLink]="['/dashboard/record-active/shrimp-period']"
+                routerLinkActive="router-link-active" [nzMatchRouter]="true" class="outline-none">
+                <i nz-icon nzType="profile"></i>
+                Thông tin đợt nuôi
+            </li>
+            <li nz-menu-item [routerLink]="['/dashboard/report']" routerLinkActive="router-link-active"
+                [nzMatchRouter]="true" class="outline-none">
+                <i nz-icon nzType="line-chart"></i>
+                Báo cáo thống kê
+            </li>
+            <li nz-submenu nzTitle="Quản lý người dùng" nzIcon="usergroup-add" class="mx-1">
+                <ul>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/manage-user/group']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Nhóm người dùng</li>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/manage-user/user']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Người dùng</li>
+                </ul>
+            </li>
+            <li nz-submenu nzTitle="Dữ liệu nguồn" nzIcon="database" nzSelected class="mr-1">
+                <ul>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/data-source/area']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Khu vực</li>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/data-source/farming-location']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Vị trí nuôi trồng</li>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/data-source/shrimp']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Giống tôm</li>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/data-source/management-factors']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Yếu tố quản lý</li>
+                </ul>
+            </li>
+
+            <!-- <li nz-submenu nzTitle="Hoạt động ghi nhận" nzIcon="reconciliation" class="mx-1">
+                <ul>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/record-active/shrimp-period']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Quản lý thông tin đợt nuôi</li>
+                    <li nz-menu-item class="outline-none" [routerLink]="['/dashboard/record-active/note-book']"
+                        routerLinkActive="router-link-active" [nzMatchRouter]="true">Quản lý công việc ghi nhận</li>
+                </ul>
+            </li> -->
+
+
+        </ul>
+    </nz-header>
+    <nz-content>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item *ngFor="let item of breadcrumbs">{{item.label}}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <div class="inner-content">
+            <router-outlet></router-outlet>
+        </div>
+    </nz-content>
+    <nz-footer>&copy; {{currentYear}} Aquaculture. All right reserved. Powered by BYS</nz-footer>
+</nz-layout>
+
+
+
+
+<ng-template #notiTemplate>
+    <div class="notify-list">
+        <div class="dropdown-menu-header d-flex justify-content-between">
+            <div class="font-weight-bold w-100 my-2 mx-3 d-flex justify-content-between">
+                <div>THÔNG BÁO</div>
+                <div><i class="fa fa-times pointer" aria-hidden="true" (click)="closeNoti()"></i></div>
+            </div>
+        </div>
+        <ng-container *ngIf="notificationData && notificationData.length">
+            <div class="force-scroll">
+                <ng-container *ngFor="let item of notificationData">
+                    <div class="notification-item d-flex pointer" [class.item-new]="item.status === 'New'"
+                        (click)="readItem(item)">
+                        <div class="d-flex py-2 type-notify pointer">
+                            <div class="d-flex align-items-center" width="">
+                                <i class="fa fa-file-text-o type-notify-icon" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="dropdown-item-notify py-2 w-100">
+                            <strong class="last">{{item.title}}</strong>
+                            <div>
+                                <span class="last span--margin">{{item.message}}&nbsp;</span>
+                                <span class="badge badge-info">Chi tiết</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="notification-item d-flex">
+                <div class="my-2 ml-3">
+                    <a href="javascript:void(0)" (click)="viewAllNoti()">Xem tất cả</a>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!(notificationData && notificationData.length)">
+            <div class="notification-item text-center">
+                <div class="py-2 ml-3">
+                    Không có thông báo nào
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>

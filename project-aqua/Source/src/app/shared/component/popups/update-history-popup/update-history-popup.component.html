@@ -1,0 +1,66 @@
+<div class="popup-container">
+  <div class="content container h-50 w-300">
+    <div class="row popup-title">
+      lịch sử cập nhật
+    </div>
+    <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+      <div class="nz-col" nzSpan="12">
+        <div class="table-content p-3">
+          <nz-table #basicTable nzShowSizeChanger [nzPageSizeOptions]="[5,10,15,20]" nzShowPagination [nzData]="historyData" [nzLoading]="false"
+          [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize">
+            <thead>
+              <tr>
+                <th class="table-col-stt text-center" nzLeft="0px">
+                  <div class="d-flex justify-content-center">
+                    <P class="mb-0">STT</P>
+                  </div>
+                </th>
+                <th class="table-col-name">
+                  <P class="mb-0">Người cập nhật</P>
+                </th>
+                <th class="table-col-time">
+                  <P class="mb-0">Thời gian cập nhật</P>
+                </th>
+                <th class="table-col-before">
+                  <P class="mb-0 text-nowrap">Trước cập nhật</P>
+                </th>
+                <th class="table-col-after">
+                  <P class="mb-0 text-nowrap">Sau cập nhật</P>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of basicTable.data; let i = index">
+                <td class="text-center">
+                  <span [title]="renderIndex(i)">
+                    {{ renderIndex(i) }}
+                  </span>
+                </td>
+                <td>
+                  <span [title]="item?.modifiedBy?.fulName">
+                    {{item?.modifiedBy?.fullName}}
+                  </span>
+                </td>
+                <td>
+                  <span [title]="item?.modifiedAt ? (item?.modifiedAt * 1000 | date:'dd/MM/yyyy hh:mm a') : ''">
+                    {{item?.modifiedAt * 1000 | date:'dd/MM/yyyy hh:mm a'}}
+                  </span>
+                </td>
+                <td class="text-right">
+                  <span [title]="item?.oldValue ? item?.oldValue : ''">
+                    {{item?.oldValue}}
+                  </span>
+                </td>
+                <td class="text-right">
+                  <span [title]="item?.newValue ? item?.newValue : ''">
+                    {{item?.newValue}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

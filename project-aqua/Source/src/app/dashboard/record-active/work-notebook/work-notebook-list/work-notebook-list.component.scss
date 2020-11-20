@@ -1,0 +1,75 @@
+.table-content {
+    .table-col {
+      &-stt {
+        width: 3rem;
+      }
+      &-name {
+        width: 12rem;
+      }
+      &-executionTime {
+        width: 7rem;
+      }
+      &-farmingLocation {
+        width: 9rem;
+      }
+      &-shrimpBreed {
+        width: 9rem;
+      }
+      &-curator {
+        width: 8rem;
+      }
+      &-sampleValue {
+          width: 5rem;
+        }
+      &-description {
+        width: 10rem;
+      }
+      &-value {
+        width: 8rem;
+      }
+      &-pictures {
+        width: 7rem;
+      }
+      &-manipulation {
+        width: 5rem;
+      }
+    }
+    .desc-icon {
+      color: #505050;
+    }
+    .upload-icon {
+      color: #44A0C9;
+    }
+    .history-icon {
+      color: #4447A4;
+    }
+    .recognized-value {
+      input {
+        width: calc(100% - 20px);
+      }
+      .save-icon {
+        color: #255eda;
+        font-weight: bold;
+      }
+      .edit-cion {
+        color: #1E7E34;
+        font-weight: bold;
+      }
+      .add-cion {
+        color: #db7517;
+        font-weight: bold;
+      }
+    }
+  }
+  :host ::ng-deep {
+    nz-select {
+      min-width: 160px;
+    }
+  }
+  .search-area  {
+    min-width: 16rem;
+  }
+  .not-value {
+    background-color: #FDE1B7;
+  }
+  

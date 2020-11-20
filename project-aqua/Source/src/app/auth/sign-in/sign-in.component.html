@@ -1,0 +1,84 @@
+<!-- <div class="auth-area">
+  <div class="auth-container">
+    <div class="bg-auth" style="background-image: url('assets/images/auth/auth-bg.png');"></div>
+    <div class="auth-login px -3">
+     <div class="d-flex justify-content-center flex-column align-items-center">
+      <img src="assets/images/logo_bys.svg" width="120px" />
+      <p class="form-title text-center mt-2">
+        Bys Aquaculture
+      </p>
+     </div>
+      <form class="auth-login-form" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+      
+        <div>
+          <nz-input-group class="auth-input my-2" nzPrefixIcon="mail" [class.is-invalid]="formErrors?.email">
+            <input type="text" nz-input formControlName="email" placeholder="Email/Tên tài khoản (*)" />
+        
+      </nz-input-group>
+      <div class="invalid-feedback" ngI="formErrors?.email">
+          {{formErrors?.email}}
+        </div>
+
+      <nz-input-group class="auth-input my-2" nzPrefixIcon="lock"  [class.is-invalid]="formErrors?.password">
+        <input type="password" nz-input formControlName="password" placeholder="Mật khẩu (*)"/>
+      </nz-input-group>
+      <div class="invalid-feedback" ngI="formErrors?.password">
+        {{ formErrors?.password }}
+      </div>
+      <div class="w-100 d-flex justify-content-end">
+      </div>
+      <button nz-button type="submit" nzType="primary" class="text-uppercase font-weight-bold w-100 mt-4 d-flex align-items-center justify-content-center"><i class="fa fa-sign-in icon-btn"></i> đăng nhập</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+ -->
+
+ <section class="auth">
+  <div class="container">
+    <div class="auth-popup row">
+      <div  class="banner col-md-6 m-0 p-0 position-relative">
+        <div class="d-flex flex-column position-absolute title-area">
+          <img src="assets/images/auth/logo.png" class="mt-3 banner-logo"/>
+          <p class="banner-title text-center">
+            Bys Aquaculture
+          </p>
+        </div>
+
+        <img src="assets/images/auth/bg.png" alt="" class="banner-bg">
+      </div>
+      <div class="content col-md-6">
+        <div class="form">
+          <h3 nz-title class="text-uppercase form-title mb-3 text-center">
+            Đăng Nhập
+          </h3>
+          <div class="d-flex">
+            <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="form-content">
+
+              <nz-input-group class="my-2" nzPrefixIcon="user" [class.is-invalid-input]="formErrors?.email">
+                    <input type="text" class="form-input" nz-input formControlName="email" placeholder="Tên tài khoản" />
+                
+              </nz-input-group>
+              <div class="invalid-feedback">
+                  {{formErrors?.email}}
+                </div>
+
+              <nz-input-group class="my-2" nzPrefixIcon="lock"  [class.is-invalid-input]="formErrors?.password">
+                <input type="password" class="form-input" nz-input formControlName="password" placeholder="Mật khẩu" [prevent-keys]="[32]" />
+              </nz-input-group>
+              <div class="invalid-feedback">
+                {{ formErrors?.password }}
+              </div>
+
+              <button nz-button type="submit"  class="text-uppercase btn btn-login w-100 mt-4">đăng nhập</button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

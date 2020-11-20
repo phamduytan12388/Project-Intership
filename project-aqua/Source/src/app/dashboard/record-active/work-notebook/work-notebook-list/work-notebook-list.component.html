@@ -1,0 +1,248 @@
+<div class="inner-content w-100 p-2">
+    <div class="row mx-0 align-items">
+        <div class="d-flex align-items-center">
+            <h6 class="text-uppercase font-weight-bold primary-color mb-0">Thông tin công việc ghi nhận</h6>
+        </div>
+    </div>
+
+    <div class="d-flex mt-3">
+        <div class="align-items-center py-1 d-flex w-100 flex-wrap">
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Từ ngày</p>
+                </div>
+                <div>
+                    <nz-date-picker [(ngModel)]="filterModel.fromDate" [nzDisabledDate]="disabledStartDate"
+                        (ngModelChange)="fromDateChange(toDate)" #fromDate></nz-date-picker>
+                </div>
+            </div>
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Đến ngày</p>
+                </div>
+                <div>
+                    <nz-date-picker [(ngModel)]="filterModel.toDate" [nzDisabledDate]="disabledEndDate"
+                        (ngModelChange)="toDateChange(fromDate)" #toDate></nz-date-picker>
+                </div>
+            </div>
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Trạng thái</p>
+                </div>
+                <div>
+                    <nz-select [(ngModel)]="filterModel.status" name="status" nzShowSearch nzAllowClear
+                        nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option *ngFor="let item of statusData" [nzLabel]="item.value" [nzValue]="item.code">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Vị trí nuôi trồng</p>
+                </div>
+                <div>
+                    <nz-select (ngModelChange)="changeFarmingLocation($event)" [(ngModel)]="filterModel.farmingLocationId" name="farmingLocationId" nzShowSearch
+                        nzAllowClear nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option *ngFor="let item of farmingLocationData" [nzLabel]="item.name" [nzValue]="item.id">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Đợt nuôi</p>
+                </div>
+                <div>
+                    <nz-select [nzDisabled]="!filterModel.farmingLocationId" [(ngModel)]="filterModel.shrimpCropId" name="shrimpCropId" nzShowSearch nzAllowClear
+                        nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option *ngFor="let item of shrimpPeriodDataShow" [nzLabel]="item.name" [nzValue]="item.id">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Nhóm yếu tố</p>
+                </div>
+                <div>
+                    <nz-select [(ngModel)]="filterModel.factorGroup" name="shrimpCropId" nzShowSearch nzAllowClear
+                        nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option *ngFor="let item of factorGroupData" [nzLabel]="item.value" [nzValue]="item.code">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="d-flex align-items-center mr-3 mb-3">
+                <div class="align-items-center filter-width mr-2">
+                    <p class="mb-0">Người phụ trách</p>
+                </div>
+                <div>
+                    <nz-select [(ngModel)]="filterModel.curator" name="shrimpCropId" nzShowSearch nzAllowClear
+                        nzPlaceHolder="-Tất cả (All)-">
+                        <nz-option *ngFor="let item of userAll" [nzLabel]="item.fullName" [nzValue]="item.id">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="d-flex ml-auto mb-3">
+                <button nz-button nzType="primary"
+                    class="text-uppercase button mr-2 py-1 d-flex align-items-center justify-content-center"
+                    (click)="filter()">
+                    Lọc
+                </button>
+                <button nz-button nzType="primary"
+                    class="text-uppercase button  py-1 d-flex align-items-center justify-content-center"
+                    (click)="clearFilter()">
+                    Xóa lọc
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="h-100 w-100 table-content pt-3">
+        <nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="workNoteBookData"
+            [nzLoading]="isLoadingTable" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+            (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)"
+            [nzScroll]="{ x: '1150px' }">
+            <thead>
+                <tr>
+                    <th class="table-col-stt text-center" nzLeft="0px">
+                        <div class="d-flex justify-content-center">
+                            <P class="mb-0">STT</P>
+                        </div>
+                    </th>
+                    <th class="table-col-name">
+                        <P class="mb-0">Tên công việc</P>
+                    </th>
+                    <th class="table-col-executionTime">
+                        <P class="mb-0">T/gian TH</P>
+                    </th>
+                    <th class="table-col-farmingLocation">
+                        <P class="mb-0 text-nowrap">Vị trí</P>
+                    </th>
+                    <th class="table-col-shrimpBreed">
+                        <P class="mb-0 text-nowrap">Giống tôm</P>
+                    </th>
+                    <th class="table-col-curator">
+                        <P class="mb-0 text-nowrap">Người phụ trách</P>
+                    </th>
+                    <th class="table-col-sampleValue">
+                        <P class="mb-0 text-nowrap">GTTK</P>
+                    </th>
+                    <th class="table-col-description">
+                        <P class="mb-0 text-nowrap">Mô tả</P>
+                    </th>
+                    <th class="table-col-value">
+                        <P class="mb-0 text-nowrap">GT ghi nhận</P>
+                    </th>
+                    <th class="table-col-pictures">
+                        <P class="mb-0 text-nowrap">Minh chứng</P>
+                    </th>
+                    <th nzRight="0px" class="table-col-manipulation">
+                        <P class="mb-0 text-nowrap">Thao tác</P>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of basicTable.data; let i = index">
+                    <td nzLeft="0px" class="text-center">
+                        <span [title]="renderIndex(i)">
+                            {{ renderIndex(i) }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center" [title]="'Ghi nhận ' + item?.managementFactor?.name">
+                            <div>Ghi nhận <span class="font-weight-bold">{{item?.managementFactor?.name}}</span> </div>
+                            <img src="assets/images/dead.gif" *ngIf="isLateDeadline(item)" alt="" width="20px">
+                            <img src="assets/images/waring.gif" *ngIf="isWarning(item)" alt="" width="20px">
+                        </div>
+                    </td>
+                    <td>
+                        <span
+                            [title]="item?.executionTime ? (item?.executionTime * 1000 | date:'dd/MM/yyyy HH:mm') : ''">
+                            {{item?.executionTime * 1000 | date:'dd/MM/yyyy'}}
+                            <span class="font-weight-bold">{{item?.executionTime * 1000 | date:'HH:mm'}}</span>
+                        </span>
+                    </td>
+                    <td >
+                        <div class="text-truncate" [title]="item?.farmingLocation?.name ? item?.farmingLocation?.name + ' (' + item?.shrimpCrop?.name + ')' : ''">
+                            {{item?.farmingLocation?.name}} ({{item?.shrimpCrop?.name}})
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-truncate" [title]="item?.shrimpBreed?.name ? item?.shrimpBreed?.name + ' (' + item?.age + ' ngày tuổi)' : ''">
+                            {{item?.shrimpBreed?.name}} (<span class="font-weight-bold">{{item?.age}}</span> ngày tuổi)
+                        </div>
+                    </td>
+                    <td>
+                        <span [title]="item?.curator?.fullName ? item?.curator?.fullName : ''">
+                            {{item?.curator?.fullName}}
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <span [title]="item?.sampleValue ? item?.sampleValue : ''">
+                            <span *ngIf="!(item?.sampleValue?.length > 20)">{{item?.sampleValue}}</span>
+                            <marquee *ngIf="item?.sampleValue?.length > 20" direction="left">{{item?.sampleValue}}
+                            </marquee>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center"
+                            [title]="item?.description ? item?.description : ''">
+                            <div class="text-truncate">
+                                {{item?.description}}
+                            </div>
+                            <i class="fa fa-info-circle pointer desc-icon ml-2" aria-hidden="true" *ngIf="item?.description" (click)="showInfo(item)"></i>
+                        </div>
+                    </td>
+                    <td [class.not-value]="!item?.value">
+                        <div class="d-flex justify-content-between align-items-center recognized-value">
+                            <ng-container *ngIf="workNoteBookItemEdit.id === item.id">
+                                <i class="fa fa-check-square-o pointer save-icon" aria-hidden="true"
+                                    (click)="createOrEditNoteBook(item)"></i>
+                                <div class="d-flex align-items-center">
+                                    <input class="ml-2 text-right" type="text" nz-input appInputNumber [placeholder]="'Nhập'" [class.is-invalid]="workNoteBookItemEdit['isSubmit'] && !workNoteBookItemEdit.value"
+                                        [(ngModel)]="workNoteBookItemEdit.value" />
+                                    <div>&nbsp;{{item?.measureUnit?.name}}</div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="workNoteBookItemEdit.id !== item.id">
+                                <i *ngIf="!item.value" class="fa fa-plus-square-o pointer add-cion" aria-hidden="true"
+                                    (click)="chooseItemEdit(item)"></i>
+                                <i *ngIf="item.value" class="fa fa-pencil-square-o pointer edit-cion" aria-hidden="true"
+                                    (click)="chooseItemEdit(item)"></i>
+                                <div class="d-flex align-items-center">
+                                    <span [title]="item?.value ? item?.value : ''">
+                                        {{item?.value ? item?.value : ''}}
+                                    </span>
+                                    <div>&nbsp;{{item?.measureUnit?.name}}</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center"
+                            [title]="item?.pictures?.length ? 'Xem ' + item?.pictures?.length + ' hình' : ''">
+                            <a href="javascript:void(0)"
+                                (click)="viewFullScreenImage(item)">{{item?.pictures?.length ? 'Xem ' + item?.pictures?.length + ' hình' : ''}}</a>
+                            <i class="fa fa-upload pointer upload-icon"
+                                (click)="uploadImageBtn.value = null; uploadImageBtn.click()"></i>
+                            <input type="file" multiple class="d-none" accept=".jpg, .jpeg, .png, .gif" #uploadImageBtn
+                                (change)="uploadImage($event, item)">
+                        </div>
+                        <!-- {{item?.pictures | json}} -->
+                    </td>
+                    <td nzRight="0px">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fa fa-history pointer history-icon" aria-hidden="true"
+                                (click)="viewHistory(item)"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+<app-image-carousel class="d-flex justify-content-center align-items-center"
+    *ngIf="imageShowPopupView && imageShowPopupView.length > 0" [(imageUrlArray)]="imageShowPopupView"
+    [(indexOfImage)]="indexOfImage" (closed)="closeView()" [workNoteBook]="carouselItem"></app-image-carousel>

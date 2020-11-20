@@ -1,0 +1,163 @@
+<div class="form-content py-4 px-3" *ngIf="userForm" [formGroup]="userForm">
+  <nz-collapse>
+    <nz-collapse-panel [nzHeader]="'Thông tin tài khoản'" [nzActive]="true">
+      <div class="form-content-area">
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="userName" class="required">Tên đăng nhập</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <input nz-input id="userName" [attr.disabled]="id" formControlName="userName" [class.is-invalid]="formErrors?.userName">
+            <div class="invalid-feedback" *ngIf="formErrors?.userName">
+              {{ formErrors?.userName }}
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="type === typeForm.create">
+          <div class="row mt-3">
+            <div class="col-md-3 col-12">
+              <label for="password" class="required">Mật khẩu</label>
+            </div>
+            <div class="col-md-9  col-12">
+              <input type="password" nz-input id="password" formControlName="password"
+                [class.is-invalid]="formErrors?.password">
+              <div class="invalid-feedback"  *ngIf="formErrors?.password">
+                {{ formErrors?.password }}
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-3 col-12">
+              <label for="reTypeNewPassword" class="required">Nhập lại mật khẩu</label>
+            </div>
+            <div class="col-md-9  col-12">
+              <input type="password" [class.is-invalid]="formErrors?.reTypeNewPassword" nz-input
+                formControlName="reTypeNewPassword" [prevent-keys]="[32]" placeholder="" />
+              <div class="invalid-feedback"  *ngIf="formErrors?.reTypeNewPassword">
+                {{ formErrors?.reTypeNewPassword }}
+              </div>
+              <div class="invalid-feedback"  *ngIf="formErrors?.mustMatch">
+                {{ formErrors?.mustMatch }}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="group">Nhóm người dùng</label>
+          </div>
+          <div class="col-md-9  col-12 d-flex justify-content-between">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="-Chọn-" formControlName="group"
+              [compareWith]="compareDataNZSelectUserGroup" class="group-select">
+              <nz-option *ngFor="let item of userGroupsData" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+            </nz-select>
+            <div class="icon-add">
+              <i class="fa fa-plus outline-none pointer" aria-hidden="true" (click)="createUserGroup()"></i>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+         <div class="col-12">
+          <div class="checkbox-inActive" (click)="changeStatus($event)"></div>
+          <label nz-checkbox (ngModelChange)="changeStatus($event)"
+           nz-checkbox [(ngModel)]="userForm && userForm.getRawValue() && userForm.getRawValue().isActive" 
+          [ngModelOptions]="{standalone: true}"><span class="font-weight-bold">Hoạt động</span></label>
+         </div>
+        </div>
+      </div>
+    </nz-collapse-panel>
+    <nz-collapse-panel [nzHeader]="'Thông tin cá nhân'" [nzActive]="true">
+      <div class="form-content-area">
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="fullName" class="required">Họ và tên</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <input nz-input id="fullName" formControlName="fullName" [class.is-invalid]="formErrors?.fullName">
+            <div class="invalid-feedback"  *ngIf="formErrors?.fullName">
+              {{ formErrors?.fullName }}
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="email" class="required">Email</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <input nz-input id="email" formControlName="email" [class.is-invalid]="formErrors?.email">
+            <div class="invalid-feedback"  *ngIf="formErrors?.email">
+              {{ formErrors?.email }}
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="phone">Số điện thoại</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <input nz-input id="phone" formControlName="phone">
+            <div class="invalid-feedback"  *ngIf="formErrors?.phone">
+              {{ formErrors?.phone }}
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="province" >Tỉnh/Thành phố</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <nz-select 
+              formControlName="province" nzShowSearch nzAllowClear [compareWith]="compareDataNZSelect"
+              nzPlaceHolder="-Chọn Tỉnh/Thành phố-" (ngModelChange)="changeProvince($event)">
+              <nz-option *ngFor="let item of provinceData" [nzLabel]="item.value"
+                  [nzValue]="item"></nz-option>
+          </nz-select>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="district">Quận/Huyện</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <nz-select [nzDisabled]="!userForm.get('province').value"
+            formControlName="district" nzShowSearch nzAllowClear [compareWith]="compareDataNZSelect"
+            nzPlaceHolder="-Chọn Quận/Huyện-" (ngModelChange)="changeDistrict($event)">
+            <nz-option *ngFor="let item of districtData" [nzLabel]="item.value"
+                [nzValue]="item"></nz-option>
+        </nz-select>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="commune">Phường/Xã</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <nz-select [nzDisabled]="!userForm.get('district').value"
+            formControlName="commune" nzShowSearch nzAllowClear [compareWith]="compareDataNZSelect"
+            nzPlaceHolder="-Chọn Phường/Xã-">
+            <nz-option *ngFor="let item of communeData" [nzLabel]="item.value"
+                [nzValue]="item">
+            </nz-option>
+        </nz-select>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label for="address">Số nhà, tên đường</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <input nz-input id="address"  formControlName="address">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 col-12">
+            <label>Địa chỉ</label>
+          </div>
+          <div class="col-md-9  col-12">
+            <textarea class="w-100" cols="30" rows="3" nz-input disabled>{{address}}</textarea>
+          </div>
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>

@@ -1,0 +1,147 @@
+.view-detail-notification{
+  background-color: #3491e5;
+  font-size: 10px;
+  color: white;
+  border-radius: 1rem;
+}
+
+.inner-content {
+  background: white;
+  padding: 1rem 3rem;
+  margin-bottom: 10rem;
+  .button {
+    min-width: 8rem;
+    padding: 5px 0;
+  }
+  .button-filter,
+  .button-delete {
+    min-width: 6rem;
+  }
+  .search-area {
+    input {
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background-color: #ffffff;
+    }
+  }
+  .vertical-bar {
+    &::before {
+      content: '';
+      border-left: 0.2rem solid #0d6c42;
+      margin-right: 0.5rem;
+    }
+  }
+  .table-content {
+    .action {
+      .icon-eye {
+        i {
+          color: #f5bc11;
+        }
+      }
+      .icon-trash {
+        i {
+          color: #f97c7b;
+        }
+      }
+    }
+  }
+
+  .pagination {
+    position: absolute;
+    bottom: -3rem;
+    nz-select {
+      width: 8rem;
+    }
+  }
+  
+  .unread {
+    background-color: #dfeaea94;
+  }
+  .view-all{
+    color: #40a9ff;
+  }
+  .padding-avatar{
+    padding-left: 0.75rem;
+    padding-right: 0.5rem;
+  }
+  .avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .dropdown-item{
+    padding: 0.25rem 0.5rem 0.25rem 0.25rem !important;
+  }
+  .ellipsis{
+    font-size: 16px;
+  }
+}
+
+.fast-action{
+  background-color: white;
+  .notification-item {
+    border-bottom: 1px solid #cccccc;
+    .span--margin{
+        margin: 0rem 0.3rem 0rem 0rem;
+    }
+    .content--bold{
+        font-weight: 600;
+    }
+    .notification--not-read{
+        background-color: #edf2fa;
+    }
+  }
+}
+
+.noti-home{
+  border-bottom: 3px solid #096b3d;
+  padding: 8px 15px;
+}
+
+.item-new {
+  background-color: #f6fcff;
+}
+
+.item-notifi{
+  border-bottom: 1px solid #f5f7f8;
+  .date {
+    width: 80px;
+  }
+  .icon{
+    width: 80px;
+    .avatar {
+      vertical-align: middle;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+  .content {
+    width: calc(100% - 340px);
+    .span--margin{
+      margin: 0rem 0.3rem 0rem 0rem;
+    }
+    .last {
+      white-space: initial;
+    }
+  }
+  .content-read {
+    width: calc(100% - 160px);
+  }
+  .action {
+    width: 180px;
+    .read {
+      color: #3196f5;
+    }
+    .delete {
+      color: #dd4e39;
+    }
+  }
+  .type-notify-icon {
+    font-size: 30px;
+    color: #3597B6;
+  }
+}
+

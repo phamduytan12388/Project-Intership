@@ -1,0 +1,43 @@
+.table-content {
+    .table-col {
+      &-stt {
+        width: 3rem;
+      }
+      &-code {
+        width: 10rem;
+      }
+      &-name {
+        width: 17rem;
+      }
+      &-form {
+        width: 7rem;
+      }
+      &-to {
+        width: 7rem;
+      }
+      &-farmingLocation {
+        width: 10rem;
+      }
+      &-shrimp {
+          width: 10rem;
+        }
+      &-note {
+        width: 10rem;
+      }
+      &-manipulation {
+        width: 5rem;
+      }
+    }
+  }
+  :host ::ng-deep {
+    nz-select {
+      min-width: 160px;
+    }
+  }
+  .search-area  {
+    min-width: 16rem;
+  }
+
+  .management-factor {
+    height: 25px;
+  }

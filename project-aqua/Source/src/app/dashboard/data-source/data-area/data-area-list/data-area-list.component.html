@@ -1,0 +1,64 @@
+<div class="inner-content w-100 p-2">
+  <div class="row mx-0 align-items">
+    <div class="d-flex align-items-center">
+      <h6 class="text-uppercase font-weight-bold primary-color mb-0">danh sách khu vực</h6>
+    </div>
+    <div class="mx-0 ml-auto d-flex">
+      <div class="search-area mx-1" nz-tooltip [nzTooltipTitle]="'Tìm theo mã, tên khu vực, địa chỉ'">
+        <nz-input-group class="search" nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"
+            [placeholder]="'Tìm theo mã, tên khu vực, địa chỉ'" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="h-100 w-100 table-content pt-3">
+    <nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="dataAreaList" [nzLoading]="false"
+      [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)"
+      [nzScroll]="{ x: '1150px' }">
+      <thead>
+        <tr>
+          <th nzLeft="0px" class="text-center table-col-stt">STT</th>
+          <th class="table-col-code">
+            <P class="mb-0">Mã khu vực</P>
+          </th>
+          <th class="table-col-name">
+            <P class="mb-0 text-nowrap">Tên khu vực</P>
+          </th>
+          <th class="table-col-area">
+            <P class="mb-0 text-nowrap">Diện tích (m<span class="superscript">&#178;</span>)</P>
+          </th>
+          <th class="text-center" class="table-col-address">
+            <P class="mb-0 text-nowrap">Địa chỉ</P>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of basicTable.data; let i = index">
+          <td nzLeft="0px" class="text-center"> {{renderIndex(i)}}
+          </td>
+          <td><span [title]="item?.code">{{item?.code}}</span>
+          </td>
+          <td>
+            <span [title]="item?.name">
+              {{item?.name}}
+            </span>
+          </td>
+          <td class="text-right">
+            <span [title]="item?.area | formatNumber:3">
+              {{item?.area | formatNumber:3}}
+            </span>
+          </td>
+          <td class="text-break">
+            <span [title]="item?.address">
+              {{ item?.address | truncateWord: 17}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

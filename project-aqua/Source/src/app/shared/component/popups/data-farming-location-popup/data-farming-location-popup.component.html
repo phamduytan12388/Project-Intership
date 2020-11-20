@@ -1,0 +1,117 @@
+<div class="popup-container">
+    <div class="content container h-50 w-300">
+        <div class="row popup-title">
+            {{ data.id ? 'tạo mới' : 'chỉnh sửa'}} ao nuôi
+        </div>
+        <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+            <div class="nz-col" nzSpan="12" *ngIf="locationForm">
+                <form class="popup-form" [formGroup]="locationForm">
+                    <div class="mb-3 d-flex">
+                        <div class="w-50 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0">Mã:</p>
+                            </div>
+                            <div class="field-value">
+                                <input disabled [class.is-invalid]="locationForm.get('code')?.CustomErr" nz-input
+                                    formControlName="code" />
+                            </div>
+                        </div>
+                        <div class="w-50 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0 required ">Loại ao nuôi:</p>
+                            </div>
+                            <div class="field-value">
+                                <nz-select formControlName="locationType" [compareWith]="compareDataNZSelect"
+                                    [class.is-invalid]="locationForm.get('locationType')?.CustomErr" name="locationType"
+                                    nzShowSearch nzAllowClear nzPlaceHolder="-Tất cả (All)-">
+                                    <nz-option *ngFor="let item of locationTypeData" [nzLabel]="item.value"
+                                        [nzValue]="item">
+                                    </nz-option>
+                                </nz-select>
+                                <div class="invalid-feedback" *ngIf="locationForm.get('locationType')?.CustomErr">
+                                    {{ locationForm.get('locationType')?.CustomErr }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-3">
+                        <div class="w-50 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0 required ">Tên ao nuôi:</p>
+                            </div>
+                            <div class="field-value">
+                                <input placeholder="Nhập tên ao nuôi" [class.is-invalid]="locationForm.get('name')?.CustomErr" nz-input
+                                    formControlName="name" />
+                                <div class="invalid-feedback" *ngIf="locationForm.get('name')?.CustomErr">
+                                    {{ locationForm.get('name')?.CustomErr }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0 required ">Khu vực:</p>
+                            </div>
+                            <div class="field-value">
+                                <nz-select formControlName="area" [compareWith]="compareDataNZSelectArea"
+                                    [class.is-invalid]="locationForm.get('area')?.CustomErr" name="area" nzShowSearch
+                                    nzAllowClear nzPlaceHolder="-Tất cả (All)-">
+                                    <nz-option *ngFor="let item of areaData" [nzLabel]="item.name" [nzValue]="item">
+                                    </nz-option>
+                                </nz-select>
+
+                                <div class="invalid-feedback" *ngIf="locationForm.get('area')?.CustomErr">
+                                    {{ locationForm.get('area')?.CustomErr }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-3">
+                        <div class="w-50 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0">Diện tích (m<span class="superscript">&#178;</span>):</p>
+                            </div>
+                            <div class="field-value">
+                                <input placeholder="Nhập diện tích" class="text-right" [class.is-invalid]="locationForm.get('landArea')?.CustomErr" nz-input appInputNumber
+                                    formControlName="landArea" />
+                            </div>
+                        </div>
+                        <div class="w-50 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0">Tài liệu đính kèm:</p>
+                            </div>
+                            <div class="field-value">
+                                <input placeholder="Nhập link tài liệu đính kèm" [class.is-invalid]="locationForm.get('attachment')?.CustomErr" nz-input
+                                    formControlName="attachment" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="w-100 d-flex px-2">
+                            <div class="field-name">
+                                <p class="mb-0">Mô tả:</p>
+                            </div>
+                            <div class="field-value">
+                                <textarea placeholder="Nhập mô tả" class="outline-none w-100 p-2" formControlName="description" name="" id=""
+                                    cols="10" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-md-center pt-3">
+                        <button nz-button type="submit" nzType="primary" class="text-uppercase  mr-1"
+                            (click)="onSubmit()">
+                            Lưu
+                        </button>
+                        <button nz-button type="button" nzType="default" class="text-uppercase ml-1"
+                            (click)="closePopup()">
+                            Hủy
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

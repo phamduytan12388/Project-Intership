@@ -1,0 +1,91 @@
+<div class="inner-content w-100 p-2">
+    <div class="row mx-0 align-items">
+        <div class="d-flex align-items-center">
+            <h6 class="text-uppercase font-weight-bold primary-color mb-0">Báo cáo thống kê</h6>
+        </div>
+    </div>
+    <div class="row mx-0 align-items mt-3">
+        <div class="d-flex flex-wrap w-100">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex form-inline pl-0 pr-0">
+                <div class="form-group align-items-start mr-3 py-1">
+                    <div class="align-items-center mr-3 label pt-1">
+                        <label class="mb-0">Vị trí nuôi trồng</label>
+                    </div>
+                    <div>
+                        <nz-select [(ngModel)]="filterModel.farmingLocationId" name="farmingLocationId" nzShowSearch
+                            nzAllowClear (ngModelChange)="changeFarmingLocation($event)" nzPlaceHolder="-Tất cả (All)-">
+                            <nz-option *ngFor="let item of farmingLocationData" [nzLabel]="item.name"
+                                [nzValue]="item.id">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+                <div class="form-group align-items-start mr-3 py-1">
+                    <div class="align-items-center mr-3 label pt-1">
+                        <label class="mb-0">Đợt nuôi</label>
+                    </div>
+                    <div>
+                        <nz-select [nzDisabled]="!filterModel.farmingLocationId" [(ngModel)]="filterModel.shrimpCropId"
+                            name="shrimpCropId" nzShowSearch nzAllowClear (ngModelChange)="changeShrimpCrop($event)"
+                            nzPlaceHolder="-Tất cả (All)-">
+                            <nz-option *ngFor="let item of shrimpCropFilterData" [nzLabel]="item.name"
+                                [nzValue]="item.id" nzCustomContent>
+                                <div [title]="item.name">
+                                    <div class="text-truncate"> {{item.name}} </div>
+                                </div>
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+                <div class="form-group align-items-start mr-3 py-1">
+                    <div class="align-items-center mr-3 label pt-1">
+                        <label class="mb-0">Từ ngày</label>
+                    </div>
+                    <div>
+                        <nz-date-picker [nzDisabled]="!filterModel.shrimpCropId" [(ngModel)]="filterModel.fromDate"
+                            name="fromDate" [nzFormat]="dateFormat" nzPlaceHolder="- Chọn -"
+                            [nzDisabledDate]="disabledStartDate" (ngModelChange)="fromDateChange(toDate)" #fromDate>
+                        </nz-date-picker>
+                    </div>
+                </div>
+                <div class="form-group align-items-start mr-3 py-1">
+                    <div class="align-items-center mr-3 label pt-1">
+                        <label class="mb-0">Đến ngày</label>
+                    </div>
+                    <div>
+                        <nz-date-picker [nzDisabled]="!filterModel.fromDate" [(ngModel)]="filterModel.toDate"
+                            name="toDate" [nzFormat]="dateFormat" nzPlaceHolder="- Chọn -"
+                            [nzDisabledDate]="disabledEndDate" (ngModelChange)="toDateChange(fromDate)" #toDate>
+                        </nz-date-picker>
+                    </div>
+                </div>
+                <div class="form-group ml-auto align-items-start mr-3 py-1">
+                    <div>
+                        <button nz-button nzType="primary" class="mr-1 btn-filter" (click)="filter()">
+                            Lọc
+                        </button>
+                        <button nz-button nzType="primary" class="ml-1 btn-filter" (click)="clearFilter()">
+                            Xóa lọc
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="chart-content w-100 h-100 pt-3">
+        <!-- <p *ngIf="!(filterModel.farmingLocationId && filterModel.shrimpCropId && filterModel.fromDate && filterModel.toDate)"
+            class="note-text">Vui lòng chọn các tiêu chí để xem biểu đồ</p> -->
+        <div class="h-100 w-100 " *ngIf="chartData && chartData.length > 0">
+            <ibm-line-chart [data]="chartData" [options]="chartOption"></ibm-line-chart>
+        </div>
+        <ng-container *ngIf="chartData && chartData.length === 0">
+            <nz-empty class="mt-2" nzNotFoundImage="assets/images/empty.svg" [nzNotFoundContent]="contentTpl">
+                <ng-template #contentTpl>
+                    <span> Chưa có dữ liệu </span>
+                </ng-template>
+            </nz-empty>
+        </ng-container>
+    </div>
+
+</div>

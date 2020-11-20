@@ -1,0 +1,89 @@
+.popup-container {
+  min-width: 40rem;
+  .content {
+    .popup-form {
+      padding: 1rem 1.3rem;
+      button {
+        width: 5rem;
+        padding: 0 15px;
+      }
+    }
+  }
+  .popup-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding:0.5rem 0;
+    background-color: #3597b6;
+    color: #fff;
+  }
+}
+.not-allowed {
+  cursor: not-allowed !important;
+  background-color: #e6e6e6 !important;
+}
+:host ::ng-deep {
+  .ant-transfer-list {
+    position: relative;
+    display: inline-block;
+    width: 17rem;
+    height: 18rem;
+    padding-top: 40px;
+    vertical-align: middle;
+    border: 1px 1px #d9d9d9;
+    border-radius: 0px;
+  }
+  .ant-transfer-list-header-selected {
+    span {
+      &:first-child {
+        display: none;
+      }
+    }
+  }
+  .ant-transfer-list-header-title {
+    width: 100%;
+    display: flex;
+    padding-left: 1.55rem;
+    font-weight: bold;
+  }
+  .ant-transfer-list-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 8.75px 12px 9.75px;
+    overflow: hidden;
+    background: #3597b6;
+    color: #fff;
+    border-bottom: 1px 1px #e8e8e8;
+    border-radius: 0px 0px 0 0;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 34px;
+  }
+
+  .other-btn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    right: 8px;
+    justify-content: center;
+    bottom: 4px;
+    &-divide {
+      height: 52px;
+    }
+    &-left {
+      .anticon {
+        color: #4e4e4e;
+      }
+    }
+    &-right {
+      .anticon {
+        color: #4e4e4e;
+      }
+    }
+  }
+}

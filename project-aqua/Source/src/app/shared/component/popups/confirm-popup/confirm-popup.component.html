@@ -1,0 +1,29 @@
+<div class="popup-container">
+  <div class="content container h-50 w-300 p-0">
+    <div *ngIf="title" class="text-uppercase text-center popup-title mb-0">
+      {{ title }}
+    </div>
+    <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+      <div class="nz-col" nzSpan="12">
+        <div class="popup-message text-center " *ngIf="vnContent">
+          <p class="text-center">
+            {{ vnContent }}
+          </p>
+          <p class="text-center font-italic pb-4" *ngIf="eContent">
+            {{ eContent }}
+          </p>
+          <div class="row d-flex justify-content-center mt-2">
+            <button nz-button nzType="primary" class="text-uppercase  mr-1" (click)="closePopupYes()">
+              {{okBtnTitle}}
+            </button>
+            <button nz-button nzType="default" class="text-uppercase ml-1" (click)="closePopupNo()">
+              {{cancelBtnTitle}} 
+            </button>
+          </div>
+        </div>
+
+      
+      </div>
+    </div>
+  </div>
+</div>

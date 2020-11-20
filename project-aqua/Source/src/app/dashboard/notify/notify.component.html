@@ -1,0 +1,67 @@
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        <div class="row">
+            <div class="col-8 flex">
+                <h6 nz-title class="text-uppercase  mb-2 d-flex align-items-lg-center align-items-center">
+                    quản lý thông báo
+                </h6>
+            </div>
+        </div>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="inner-content action-bar shadow-box mt-2 pb-3 pt-3 pl-2 pr-0 w-25 mr-4 w-100 notification">
+    <div class="d-flex justify-content-between item-notifi">
+        <div class="noti-home flex-column ml-2">
+            <nz-badge [nzDot]="countUnread > 0 ? true : false ">
+                <i nz-icon nzType="home" nzTheme="outline" style="font-size: 22px;"></i>
+            </nz-badge>
+        </div>
+        <div>
+            <i *ngIf="(notificationData && notificationData.length && (countUnread > 0))"
+                class="fa fa-ellipsis-v fa-ellipsis ellipsis pointer pr-4" aria-hidden="true" nz-popover
+                nzPopoverTrigger="click" [nzPopoverContent]="notiTemplate" nzPopoverPlacement="bottomRight"></i>
+        </div>
+        <ng-template #notiTemplate>
+            <div class="fast-action">
+                <div class="notification-item">
+                    <a class="dropdown-item py-2" (click)="markAll()">
+                        Đánh dấu đọc tất cả
+                    </a>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <ng-container *ngIf="notificationData && notificationData.length">
+        <ng-container *ngFor="let item of notificationData">
+            <div class="item-notifi d-flex" [class.item-new]="item?.status === 'New'">
+                <div class="date d-flex align-items-center text-center py-4 pointer" (click)="readItem(item)">
+                  <span>{{(item?.createdAt * 1000) | date: 'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="icon d-flex align-items-center justify-content-center text-center py-4 pointer" (click)="readItem(item)">
+                    <i class="fa fa-file-text-o type-notify-icon" aria-hidden="true"></i>
+                </div>
+                <div class="content py-4 pointer" (click)="readItem(item)" [class.content-read]="item?.status !== eNotificationStatus.READ">
+                    <strong class="last">{{item?.title}}</strong>
+                    <div>
+                        <span class="last span--margin">{{item?.message}}</span>
+                        <span class="badge badge-info">Chi tiết</span>
+                    </div>
+                </div>
+                <div class="action d-flex justify-content-end pr-4 py-4" >
+                    <div *ngIf="item?.status !== eNotificationStatus.READ" class="read mr-3 pointer" (click)="mark(item)">Đánh dấu đã đọc</div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="text-right pt-3 position-relative">
+            <nz-pagination (nzPageSizeChange)="changePageSize($event)" (nzPageIndexChange)="changePageIndex($event)"
+                [nzPageIndex]="pageIndex" [nzTotal]="total" nzShowSizeChanger [nzPageSize]="pageSize"></nz-pagination>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!(notificationData && notificationData.length)">
+        <div class="item-notifi text-center py-4">
+            Không có thông báo nào
+        </div>
+    </ng-container>
+  
+</div>

@@ -1,0 +1,10 @@
+<div class="container-fluid h-100 p-0">
+  <div class="row px-0 py-2 mx-0 content-header">
+      <div class="col-12 col-sm-8 col-md-8 col-lg-6 text-left align-items">
+          <i class="fa fa-arrow-left mr-2 pointer outline-none" aria-hidden="true" [routerLink]="['/dashboard/record-active/shrimp-period']"></i>
+          <span class="content-header--title text-uppercase">Chỉnh sửa đợt nuôi tôm</span>
+      </div>
+  </div>
+  <app-period-form  #form [type]="'edit'" [id]="param"></app-period-form>
+</div>
+

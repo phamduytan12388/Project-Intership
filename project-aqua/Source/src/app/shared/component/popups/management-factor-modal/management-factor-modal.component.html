@@ -1,0 +1,101 @@
+<div class="popup-container">
+  <div class="content container h-50 w-300">
+    <div class="row popup-title pl-0">
+      {{type === eTypeForm.create ? 'tạo mới' : 'cập nhật thông tin'}} yếu tố quản lý
+    </div>
+    <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+      <div class="nz-col" nzSpan="12">
+        <form class="popup-form" *ngIf="form" [formGroup]="form">
+          <div class="w-100">
+            <div class="row  mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0 ">Mã yếu tố:</p>
+              </div>
+              <div class="col-9">
+                <input disabled nz-input formControlName="code" />
+              </div>
+            </div>
+            <div class="row  mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0 required ">Tên yếu tố:</p>
+              </div>
+              <div class="col-9">
+                <input [class.is-invalid]="formErrors?.name" nz-input formControlName="name" placeholder="Nhập tên yếu tố" />
+                <div class="invalid-feedback">
+                  {{ formErrors?.name }}
+                </div>
+              </div>
+            </div>
+            <div class="row  mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0 required ">Nhóm yếu tố:</p>
+              </div>
+              <div class="col-9">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="-Chọn nhóm yếu tố-" [class.is-invalid]="formErrors?.group" formControlName="group"
+                [compareWith]="compareDataNZSelect" class="group-select">
+                <nz-option *ngFor="let item of groupFactorsData" [nzLabel]="item.value" [nzValue]="item"></nz-option>
+              </nz-select>
+                <div class="invalid-feedback">
+                  {{ formErrors?.group }}
+                </div>
+              </div>
+            </div>
+            <div class="row  mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0 required ">Kiểu dữ liệu:</p>
+                <p class="mb-0 font-italic ">(Data type)</p>
+              </div>
+              <div class="col-9">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="-Chọn kiểu dữ liệu-" [class.is-invalid]="formErrors?.dataType" formControlName="dataType"
+                [compareWith]="compareDataNZSelect" class="group-select" (ngModelChange)="changeDataType($event)">
+                <nz-option *ngFor="let item of listDataType" [nzLabel]="item.value" [nzValue]="item"></nz-option>
+              </nz-select>
+                <div class="invalid-feedback">
+                  {{ formErrors?.dataType }}
+                </div>
+              </div>
+            </div>
+            <div class="row  mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0  ">Giá trị tham khảo:</p>
+                <p class="mb-0 font-italic ">(Hint)</p>
+              </div>
+              <div class="col-9">
+                <input  nz-input formControlName="sampleValue" placeholder="Nhập giá trị tham khảo"/>
+              </div>
+            </div>
+            <div class="row  mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0  ">Đơn vị:</p>
+              </div>
+              <div class="col-9">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="-Chọn đơn vị-"  formControlName="unit"
+                [compareWith]="compareDataNZSelectUnit" class="group-select" >
+                <nz-option *ngFor="let item of listUnitData" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+              </nz-select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-3 pl-0">
+                <p class="mb-0 ">Mô tả:</p>
+              </div>
+              <div class="col-9">
+                <textarea class="w-100" name="" id="" cols="30" rows="3" nz-input
+                 formControlName="description" placeholder="Nhập mô tả">
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-md-center pt-3">
+            <button nz-button type="submit" nzType="primary" class="text-uppercase  mr-1" (click)="onSubmit()">
+              Lưu
+            </button>
+            <button nz-button type="button" nzType="default" class="text-uppercase ml-1" (click)="closePopup()">
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

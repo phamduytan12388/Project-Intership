@@ -1,0 +1,25 @@
+.popup-container {
+  min-width: 41rem;
+  .content {
+    .popup-message {
+      padding: 1rem 1.3rem;
+      p {
+        margin: 0 auto;
+        padding: 5px 0px;
+        line-height: 2;
+        // font-weight: 500;
+        // font-size: 11px;
+      }
+    }
+  }
+  .popup-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding:0.5rem 0;
+    background-color: #3597b6;
+    color: #fff;
+  }
+}

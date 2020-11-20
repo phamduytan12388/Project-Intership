@@ -1,0 +1,25 @@
+.table-content {
+    .table-col {
+      &-stt {
+        width: 3rem;
+      }
+      &-code {
+        width: 12rem;
+      }
+      &-name {
+        width: 25rem;
+      }
+      &-address {
+        width: 28rem;
+      }
+      &-area {
+        width: 10rem;
+      }
+    }
+  }
+  :host ::ng-deep {
+    nz-select {
+      min-width: 160px;
+    }
+  }
+  

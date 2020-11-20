@@ -1,0 +1,61 @@
+<div class="popup-container">
+  <div class="content container h-50 w-300">
+    <div class="row popup-title">
+      {{type === eTypeForm.create ? 'tạo mới' : 'chỉnh sửa'}}  nhóm người dùng
+    </div>
+    <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+      <div class="nz-col" nzSpan="12">
+        <form class="popup-form" *ngIf="formCreate" [formGroup]="formCreate">
+          <div class="w-100">
+            <div class="row  mb-3">
+              <div class="col-2 pl-0">
+                <p class="mb-0 required ">Tên:</p>
+              </div>
+              <div class="col-10">
+                <input [class.is-invalid]="formErrors?.name" nz-input formControlName="name" />
+                <div class="invalid-feedback">
+                  {{ formErrors?.name }}
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-2 pl-0">
+                <p class="mb-0 required ">Mô tả:</p>
+              </div>
+              <div class="col-10">
+                <textarea class="w-100" name="" id="" cols="30" rows="3" nz-input
+                  [class.is-invalid]="formErrors?.description" formControlName="description"></textarea>
+                <div class="invalid-feedback">
+                  {{ formErrors?.description }}
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12 p-0">
+                <div class="d-flex flex-column other-btn">
+                  <div nz-button  [nzSize]="'small'" [class.not-allowed]="!checkEmptyFeature('right')"  class="my-2 other-btn-left ant-btn ant-btn-default ant-btn-sm ant-btn-icon-only" (click)="transferAllToLeft()"><i nz-icon nzType="double-left" nzTheme="outline"></i></div>
+                  <div class="other-btn-divide"></div>
+                  <div nz-button  [nzSize]="'small'" [class.not-allowed]="!checkEmptyFeature('left')" class="other-btn-right ant-btn ant-btn-default ant-btn-sm ant-btn-icon-only" (click)="transferAllToRight()"><i nz-icon nzType="double-right" nzTheme="outline"></i></div>
+                </div>
+                <nz-transfer class="position-relative"
+                 [nzDataSource]="listFeaturesShow" 
+                 [nzFilterOption]="filterOption"
+                 [nzShowSelectAll]="false"
+                 [nzTitles]="['Danh sách chức năng', 'Chức năng được sử dụng']">
+                </nz-transfer>
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-md-center pt-3">
+            <button nz-button type="submit" nzType="primary" class="text-uppercase  mr-1" (click)="onSubmit()">
+              Lưu
+            </button>
+            <button nz-button type="button" nzType="default" class="text-uppercase ml-1" (click)="closePopup()">
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+.form-content-area {
+  .tab-factor-select {
+    min-width: 12rem !important;
+  }
+  @media only screen and (max-width: 1024px) {
+    .col-tablet {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+    }
+  }
+  &--right {
+    @media only screen and (max-width: 1024px) {
+      .factor-select {
+        flex: 0 0 33.333333% !important;
+        max-width: 33.333333% !important;
+      }
+      .factor-time {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+        .col-tablet {
+          flex: 0 0 100% !important;
+          max-width: 100% !important;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .delete {
+    color: red;
+  }
+  .hasWork {
+    color: #70B603;
+  }
+  .stopWork {
+    color: #a7162a;
+  }
+  .new {
+    color: #f49f40;
+  }
+}
+
+:host ::ng-deep {
+  .time-disabled {
+    position: relative;
+    .not-allowed {
+      height: 32px;
+      width: 100%;
+      background-color: transparent;
+      width: 128px;
+      z-index: 1;
+      cursor: not-allowed;
+    }
+    nz-time-picker input .item-disabled {
+      background: #e6e6e6 !important;
+      color: #4e4e4e !important;
+    }
+  }
+}

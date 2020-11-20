@@ -1,0 +1,56 @@
+<div id="overlay" class="d-flex justify-content-center align-content-center">
+  <div class="close-button cursor-pointer" (click)="closeView()">ĐÓNG</div>
+  <div id="modal-container" class="d-flex flex-column align-items-center">
+    <div class="w3-content main-show-image d-flex justify-content-center align-content-center mb-3">
+      <button class="button-thumb mr-5 d-inline-block cursor-pointer pb-3" (click)="prevButton()">
+        <i nz-icon nzType="left" nzTheme="outline"></i>
+      </button>
+      <div class="d-flex justify-content-center flex-column">
+        <div class="d-flex title-area justify-content-center flex-column align-items-center">
+          <h4>HÌNH ẢNH MINH CHỨNG</h4>
+          <p>Tên công việc: <span>Ghi nhận</span><span class="font-weight-bold"> {{workNoteBook?.managementFactor?.name}}</span> </p>
+          <p>Thời gian thực hiện: {{workNoteBook.executionTime * 1000 | date:'dd/MM/yyyy hh:mm'}}</p>
+        </div>
+        <div class="position-relative">
+          <img imgExif *ngFor="let image of imageUrlArray; index as i" class="show-image-item py-3 "
+            [class.noShow]="isShow !== i" [class.show]="isShow === i" [src]="image | safe: 'url'" />
+          <button nz-button nzType="primary"
+            class="position-absolute btn-delete d-flex justify-content-center align-items-center" (click)="deletePicture(i)">
+            <i class="fa fa-trash mr-2" aria-hidden="true"></i> Xóa ảnh
+          </button>
+        </div>
+      </div>
+      <button class="button-thumb ml-5 d-inline-block cursor-pointer pb-3" (click)="nextButton()">
+        <i nz-icon nzType="right" nzTheme="outline"></i>
+      </button>
+    </div>
+    <div class="w-100 d-flex flex-column">
+      <div class="thumbImage w-100 d-flex justify-content-center pt-4">
+        <div class="d-inline-block">
+          <ng-container *ngIf="
+              isShow === imageUrlArray.length - 1 && imageUrlArray[isShow - 2]
+            ">
+            <img imgExif [src]="imageUrlArray[isShow - 2] | safe: 'url'" (click)="viewCurrentImage(isShow - 2)" />
+          </ng-container>
+          <img imgExif *ngIf="imageUrlArray[isShow - 1]" [src]="imageUrlArray[isShow - 1] | safe: 'url'"
+            (click)="viewCurrentImage(isShow - 1)" />
+          <img imgExif *ngFor="let image of imageUrlArray; index as j" [src]="image | safe: 'url'"
+            [class.noThumb]="isShow !== j" [class.thumb]="isShow === j" [class.shining]="isShow === j"
+            (click)="viewCurrentImage(j)" />
+          <img imgExif *ngIf="imageUrlArray[isShow + 1]" [src]="imageUrlArray[isShow + 1] | safe: 'url'"
+            (click)="viewCurrentImage(isShow + 1)" />
+          <ng-container *ngIf="isShow === 0 && imageUrlArray[isShow + 2]">
+            <img imgExif [src]="imageUrlArray[isShow + 2] | safe: 'url'" (click)="viewCurrentImage(isShow + 2)" />
+          </ng-container>
+        </div>
+      </div>
+      <div class="w3-center d-flex flex-column align-items-center button-control">
+        <div class="mb-2 d-flex flex-row justify-content-center">
+          <h4 class="text-view">
+            Hình {{ isShow + 1 }} / {{ imageUrlArray.length }}
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

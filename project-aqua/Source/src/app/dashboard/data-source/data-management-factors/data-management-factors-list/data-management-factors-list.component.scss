@@ -1,0 +1,36 @@
+.table-content {
+  .table-col {
+    &-stt {
+      width: 3rem;
+    }
+    &-type {
+      width: 6.5rem;
+    }
+    &-unit {
+      width: 6rem;
+    }
+    &-default {
+      width: 8rem;
+    }
+    &-group {
+      width: 10rem;
+    }
+    &-name {
+      width: 6rem;
+    }
+    &-description {
+      width: 16rem;
+    }
+    &-code {
+      width: 7rem;
+    }
+    &-action {
+      width: 4.5rem;
+    }
+  }
+}
+:host ::ng-deep {
+  nz-select {
+    min-width: 160px;
+  }
+}

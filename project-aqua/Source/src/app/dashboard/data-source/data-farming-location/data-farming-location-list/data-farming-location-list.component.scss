@@ -1,0 +1,58 @@
+.table-content {
+  .table-col {
+    &-stt {
+      width: 3rem;
+    }
+    &-code {
+      width: 6rem;
+    }
+    &-name {
+      width: 12rem;
+    }
+    &-type {
+      width: 8rem;
+    }
+    &-area {
+      width: 10rem;
+    }
+    &-acreage {
+      width: 7rem;
+    }
+    &-desc {
+      width: 10rem;
+    }
+    &-status {
+      width: 10rem;
+    }
+    &-doc {
+      width: 15rem;
+    }
+    &-manipulation {
+      width: 5rem;
+    }
+  }
+  .status-active {
+    width: 8rem;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    text-align: center;
+    background-color: #8dc73d;
+    color: #fff;
+  }
+  .status-delete {
+    width: 8rem;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    text-align: center;
+    background-color: #838383;
+    color: white;
+  }
+}
+:host ::ng-deep {
+  nz-select {
+    min-width: 160px;
+  }
+}
+.desc-icon {
+  color: #505050;
+}

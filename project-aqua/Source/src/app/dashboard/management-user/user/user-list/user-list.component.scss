@@ -1,0 +1,33 @@
+.table-content {
+    .table-col {
+      &-stt {
+        width: 3rem;
+      }
+      &-username {
+        width: 14rem;
+      }
+      &-email {
+        width: 18rem;
+      }
+      &-fullname {
+        width: 17rem;
+      }
+      &-group {
+        width: 18rem;
+      }
+      &-status {
+          width: 7rem;
+        }
+      &-action {
+        width: 10rem;
+      }
+    }
+  }
+:host ::ng-deep {
+  nz-select {
+    min-width: 160px;
+  }
+}
+.not-visible {
+  visibility: hidden;
+}

@@ -1,0 +1,111 @@
+[
+    {
+      "code": "INTERNAL_SERVER_ERROR",
+      "text": "Đã xảy ra lỗi. Vui lòng thử lại (An error occurred. Please try again)"
+    },
+    {
+      "code": "GET_DATA_NOT_SUCCESS",
+      "text": "Đã xảy ra lỗi. Vui lòng thử lại (An error occurred. Please try again)"
+    },
+    {
+      "code": "WRONG_USERNAME",
+      "text": "Tên tài khoản hoặc mật khẩu không đúng (Wrong user name or password)"
+    },
+    {
+      "code": "WRONG_PASSWORD",
+      "text": "Mật khẩu hiện tại không đúng"
+    },
+    {
+      "code": "USER_DEACTIVE",
+      "text": "Tài khoản này đã bị vô hiệu hóa"
+    },
+    {
+      "code": "ACCOUNT_NOT_EXIST",
+      "text": "Tài khoản không tồn tại (Account does not exist)"
+    },
+    {
+      "code": "ACCOUNT_NOT_ACTIVE",
+      "text": "Tài khoản chưa được kích hoạt. (Account not yet activated)"
+    },
+    {
+      "code": "TOKEN_NOT_EXIST",
+      "text": "Token không tồn tại (Token does not exist)"
+    },
+    {
+      "code": "OBJECT_NOT_FOUND",
+      "text": "Không tìm thấy đối tượng (Object not found)"
+    },
+    {
+      "code": "NOT_VALIDATED_EMAIL",
+      "text": "Email không đúng định dạng (Invalid email)"
+    },
+    {
+      "code": "VERIFIED_ACCOUNT",
+      "text": "Tài khoản đã xác thực (Account verified)"
+    },
+    {
+      "code": "EMAIL_EXIST",
+      "text": "Email đã tồn tại trong hệ thống (Email already exists in the system)"
+    },
+    {
+      "code": "USERNAME_EXIST",
+      "text": "Tên tài khoản đã tồn tại trong hệ thống (User account already exists in the system)"
+    },
+    {
+      "code": "USERNAME_EMAIL_EXIST",
+      "text": "Tên tài khoản hoặc tên email đã tồn tại (Account or email already exists in the system)"
+    },
+    {
+      "code": "PERMISSION_DENIED",
+      "text": "Bạn không được phép truy cập trang này (Sorry, you are not authorized to access this page)"
+    },
+    {
+      "code": "USER_EXIST_GROUP",
+      "text": "Tài khoản đã tồn tại trong nhóm (Account already exists in the group)"
+    },
+    {
+      "code": "DUPPLICATED",
+      "text": "Đã gửi yêu cầu trước đó, đang chờ xác minh (Request previously sent. Pending verification)"
+    },
+    {
+      "code": "ASYNCHRONOUS_DATA",
+      "text": "Dữ liệu này đang được cập nhật bởi cùng 1 tài khoản trên thiết bị khác, vui lòng thực hiện tải lại trang để có dữ liệu mới nhất (This datas being updated by the same account on other device, please refresh page to have the latest datas)"
+    },
+    {
+      "code": "INVALID_STATUS",
+      "text": "Trạng thái hồ sơ không hợp lệ (Invalid profile status)"
+    },
+    {
+      "code": "INVALID_PARAMETER",
+      "text": "Đã xảy ra lỗi. Vui lòng thử lại (An error occurred. Please try again)"
+    },
+    {
+      "code": "USER_INACTIVE",
+      "text": "Trạng thái tài khoản không hoạt động (Account status not active)"
+    },
+    {
+      "code": "TAX_CODE_EXIST",
+      "text": "Mã số thuế đã tồn tại trong hệ thống (Taxcode already exists in the system)"
+    },
+    {
+      "code": "IDENTITY_CARD_EXIST",
+      "text": "Số CMND đã tồn tại trong hệ thống (Identity card already exists in the system)"
+    },
+    {
+      "code": "PHONE_NUMBER_EXIST",
+      "text": "Số điện thoại di động đã tồn tại trong hệ thống (Cell phone already exists in the system)"
+    },
+    {
+      "code": "GROUP_CAN_NOT_EMPTY_USER",
+      "text": "Nhóm người dùng Admin phải có ít nhất một người dùng"
+    },
+    {
+      "code": "MUST_NOT_THAN_MORE_3_PICTURE",
+      "text": "Chỉ được phép tải lên tối đa 3 hình"
+    },
+    {
+      "code": "ACTION_DENIED",
+      "text": "Bạn không có quyền"
+    }
+  ]
+  
