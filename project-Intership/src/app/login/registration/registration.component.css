@@ -1,0 +1,70 @@
+.avatar {
+    vertical-align: middle;
+    width: 100%;
+    height: -webkit-fill-available;
+    /* border-radius: 50%; */
+}
+
+.forn-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 50px;
+}
+
+.forn-bys {
+    align-self: center;
+    color: #4989b7;
+    font-size: 34.5px;
+    margin-bottom: 3.5rem;
+}
+
+.font-input-text {
+    margin-bottom: -1rem;
+}
+
+.font-button {
+    margin-top: 1rem;
+}
+
+.icon {
+    padding: 10px;
+    background: white;
+    /* color: black; */
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 1px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
+}
+
+.form-control {
+    width: calc(100% - 50px);
+}
+
+.font-word-red {
+    color: red;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.form-main {
+    display: flex;
+    align-items: center;
+}
