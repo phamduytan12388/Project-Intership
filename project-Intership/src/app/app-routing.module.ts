@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GuardService } from './shared/guard/guard.service';
 import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './login/registration/registration.component';
 
 
 const routes: Routes = [
@@ -17,10 +16,6 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  {
-    path: 'sign-up',
-    component: RegistrationComponent
-  }
   //   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   //   {
   //     path: 'dashboard',
